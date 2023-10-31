@@ -16,7 +16,7 @@
 
         <!-- Styles -->
         @livewireStyles
-        <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+        <link rel="stylesheet" href="{{asset('./css/custom.css')}}">
     </head>
     <body>
         <div class=" text-gray-900 antialiased">

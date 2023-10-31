@@ -30,4 +30,5 @@ Route::middleware([
 //admin routes
 Route::resource('shop','shopController');
 Route:: get('shop', [ShopController::class,'index'])->name('shop.index');
+Route:: get('shop/create', [ShopController::class,'create'])->name('shop.create');
 
