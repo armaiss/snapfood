@@ -5,7 +5,7 @@
             مدیریت فروشنده ها
         </h2>
     </x-slot>
-
+    <x-validation-errors class="mb-4" />
     <form class="grid grid-cols-4 gap-4 " method="POST" action="{{ route('shop.store') }}" >
         @csrf
         <div>
@@ -26,7 +26,7 @@
         </div>
         <div class="col-span-4">
             <x-label for="address" value="آدرس" />
-            <x-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required  />
+            <x-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')"  />
         </div>
 
         <div class="col-start-1 col-end-2">

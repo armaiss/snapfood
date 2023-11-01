@@ -31,4 +31,5 @@ Route::middleware([
 Route::resource('shop','shopController');
 Route:: get('shop', [ShopController::class,'index'])->name('shop.index');
 Route:: get('shop/create', [ShopController::class,'create'])->name('shop.create');
+Route:: post('shop/store', [ShopController::class,'store'])->name('shop.store');
 
