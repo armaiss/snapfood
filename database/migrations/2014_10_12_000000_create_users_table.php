@@ -16,21 +16,11 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->set('role',['user','admin','shop'])->default('user');
-            $table->rememberToken();
-            $table->foreignId('current_team_id')->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
+            $table->string('phone_number');
             $table->timestamps();
         });
-        User::create([
-            'name'=>'zahra',
-            'email'=>'zahra@gmail.com',
-            'password'=>bcrypt('zahra'),
-            'role'=>'admin',
-            'email_verified_at'=>now(),
-        ]);
+
     }
 
     /**

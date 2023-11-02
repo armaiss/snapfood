@@ -15,9 +15,15 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('shop.index') }}" :active="request()->routeIs('dashboard')">
-                        مدیریت فروشنده ها
+                    @if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
+                    <x-nav-link href="{{ route('foodCategories.index') }}" :active="request()->routeIs('dashboard')">
+                        {{'مدیریت دسته بندی غذاها'}}
                     </x-nav-link>
+                        <x-nav-link href="{{ route('restaurantCategories.index') }}" :active="request()->routeIs('dashboard')">
+                            {{'مدیریت دسته بندی رستوران ها '}}
+                        </x-nav-link>
+
+                    @endif
                 </div>
             </div>
 

@@ -27,9 +27,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-//admin routes
-Route::resource('shop','shopController');
-Route:: get('shop', [ShopController::class,'index'])->name('shop.index');
-Route:: get('shop/create', [ShopController::class,'create'])->name('shop.create');
-Route:: post('shop/store', [ShopController::class,'store'])->name('shop.store');
+Route::resource('foodCategories',\App\Http\Controllers\FoodCategoryController::class);
+Route::resource('restaurantCategories',\App\Http\Controllers\RestaurantCategoryController::class);
 

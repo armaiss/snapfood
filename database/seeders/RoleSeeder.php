@@ -1,0 +1,25 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Laravel\Jetstream\Role;
+use Spatie\Permission\Models\Permission;
+
+class RoleSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        DB::table('roles')->insert([
+            ['name'=>'admin'],
+            ['name'=>'shop_manager']
+        ]);
+        \Spatie\Permission\Models\Role::query()->first()->syncPermissions(Permission::all());
+        \Spatie\Permission\Models\Role::query()->find('2')->syncPermissions([]);
+    }
+}

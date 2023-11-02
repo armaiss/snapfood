@@ -33,33 +33,34 @@ class ShopController extends Controller
     public function store(Request $request): void
     {
      $data= $request->validate([
-         'title'=>'required|string|between3,100|unique:shops,title',
+         'title'=>'required|string|between:3,100|unique:shops',
              'first_name'=>'required|string',
              'last_name'=>'required|string',
              'telephone'=>'required|string|size:11',
-             'email'=>'required|email|unique',
-             'username'=>'required|unique:users,name',
+             'email'=>'required|email|unique:users',
+             'name'=>'required|unique:users',
              'address'=>'nullable'
          ]);
      //create user in db
+// dd($request->name);
      $randPass= rand(1000,9999);
-    $user = User::create([
-            'name'=>$request->username,
+    $user = User::query()->create([
+            'name'=>$request->name,
             'email'=>$request->email,
             'role'=>'shop',
             'email_verified_at'=>now(),
             'password'=>bcrypt($randPass),
         ]);
         //create shop in db
-        User::create([
+        Shop::query()->create([
             'user_id'=>$user->id,
             'title'=>$request->title,
 'first_name'=>$request->first_name,
 'last_name'=>$request->last_name,
 'telephone'=>$request->telephone,
 'email'=>$request->email,
-'username'=>$request->username,
-'address'=>$request->address,
+'name'=>$request->name,
+'address'=>$request->add,
         ]);
     }
 
