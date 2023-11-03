@@ -61,6 +61,7 @@ class FoodCategoryController extends Controller
     {
         $this->authorize('update',FoodCategory::class);
        $foodCategory->update($request->validated());
+        return redirect()->route('foodCategories.index');
     }
 
     /**
@@ -70,5 +71,6 @@ class FoodCategoryController extends Controller
     {
         $this->authorize('delete',FoodCategory::class);
         $foodCategory->delete();
+        return redirect()->route('foodCategories.index');
     }
 }

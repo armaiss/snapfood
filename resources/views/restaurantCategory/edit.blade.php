@@ -6,13 +6,19 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-<form method="post" action="{{route('restaurantCategories.update',$category)}}">
+<body class="bg-pink-100 flex items-center justify-center h-screen">
+<form method="post" action="{{route('restaurantCategories.update',$category)}}" class="w-full max-w-md mx-auto p-6">
     @csrf
-    @method('put')
-    <input type="text" name="name" value="{{$category->name}}" >
-    <input type="submit">
+    @method('PUT')
+    <div class="mb-4">
+        <label for="name" class="block text-sm font-medium text-pink-700">Name</label>
+        <input type="text" name="name" id="name" class="mt-1 block w-full border border-pink-300 rounded px-3 py-2" value="{{$category->name}}" />
+    </div>
+    <div class="flex items-center justify-between mt-6">
+        <input type="submit" value="Submit" class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded" />
+    </div>
 </form>
 </body>
 </html>

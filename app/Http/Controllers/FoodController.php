@@ -56,6 +56,7 @@ class FoodController extends Controller
     {
         $this->authorize('update',$food);
         return view('food.edit',['food'=>$food]);
+
     }
 
     /**
