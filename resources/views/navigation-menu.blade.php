@@ -24,6 +24,17 @@
                         </x-nav-link>
 
                     @endif
+                    @if(Auth::user()->restaurant==null)
+                        <x-nav-link href="{{ route('restaurants.create') }}" :active="request()->routeIs('dashboard')">
+                            {{'اضافه کردن رستوران'}}
+                        </x-nav-link>
+                    @endif
+                    @if(Auth::user()->hasRole('shop_manager') )
+                        <x-nav-link href="{{ route('restaurants.edit',\Illuminate\Support\Facades\Auth::user()->restaurant ) }}" :active="request()->routeIs('dashboard')">
+                            {{'مدیریت رستوران'}}
+                        </x-nav-link>
+                    @endif
+
                 </div>
             </div>
 

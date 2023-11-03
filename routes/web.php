@@ -27,6 +27,10 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-Route::resource('foodCategories',\App\Http\Controllers\FoodCategoryController::class);
-Route::resource('restaurantCategories',\App\Http\Controllers\RestaurantCategoryController::class);
+Route::prefix('dashboard')->middleware('auth')->group(function (){
 
+    Route::resource('foodCategories',\App\Http\Controllers\FoodCategoryController::class);
+    Route::resource('restaurantCategories',\App\Http\Controllers\RestaurantCategoryController::class);
+    Route::resource('restaurants',\App\Http\Controllers\RestaurantController::class);
+    Route::resource('foods',\App\Http\Controllers\FoodController::class);
+});
