@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\restaurant;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateFoodCategoryRequest extends FormRequest
+class UpdateRestaurantRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,10 @@ class UpdateFoodCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required'
+            'name'=>'required',
+            'address'=>'required',
+            'telephone'=>'required',
+            'bank_account_number'=>'required',
         ];
     }
 }
