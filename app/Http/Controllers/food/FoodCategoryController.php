@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\food;
+namespace App\Http\Requests\address\food;
 
 use App\Models\FoodCategory;
 use App\Http\Requests\StoreFoodCategoryRequest;

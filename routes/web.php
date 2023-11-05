@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ShopController;
+use App\Http\Requests\address\ShopController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,8 +29,8 @@ Route::middleware([
 });
 Route::prefix('dashboard')->middleware('auth')->group(function (){
 
-    Route::resource('foodCategories',\App\Http\Controllers\FoodCategoryController::class);
-    Route::resource('restaurantCategories',\App\Http\Controllers\RestaurantCategoryController::class);
-    Route::resource('restaurants',\App\Http\Controllers\RestaurantController::class);
-    Route::resource('foods',\App\Http\Controllers\FoodController::class);
+    Route::resource('foodCategories', \App\Http\Requests\address\FoodCategoryController::class);
+    Route::resource('restaurantCategories', \App\Http\Requests\address\RestaurantCategoryController::class);
+    Route::resource('restaurants', \App\Http\Requests\address\RestaurantController::class);
+    Route::resource('foods', \App\Http\Requests\address\FoodController::class);
 });

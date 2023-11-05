@@ -18,10 +18,10 @@ Route::get('/hello',function ()
 {
     return response('hello');
 });
-Route::post('register',[\App\Http\Controllers\AuthController::class,'register']);
-Route::post('login',[\App\Http\Controllers\AuthController::class,'login']);
+Route::post('register',[\App\Http\Requests\address\AuthController::class,'register']);
+Route::post('login',[\App\Http\Requests\address\AuthController::class,'login']);
 
-Route::prefix('addresses')->controller(\App\Http\Controllers\AddressController::class)->name('addresses.')->group(function (){
+Route::prefix('addresses')->controller(\App\Http\Requests\address\AddressController::class)->name('addresses.')->group(function (){
     Route::get('/','index')->name('index');
     Route::get('/{{address}}','show')->name('show');
     Route::post('/','store')->name('.store');

@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('current_user_addresses', function (Blueprint $table) {
-            $table->id();
+            $table->foreignId("current_address")->nullable()->default(null)
+            ->constrained('addresses') ;
             $table->timestamps();
         });
     }
