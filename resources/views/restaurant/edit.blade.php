@@ -42,13 +42,14 @@
                 <button type="submit" class="bg-pink-500 hover-bg-pink-700 text-white font-bold py-2 px-4 rounded">
                     {{ __('Submit') }}
                 </button>
-                <a href="{{route('foods.index')}}" class="ml-4">
-                    <button class="bg-pink-500 hover-bg-pink-700 text-white font-bold py-2 px-4 rounded">
-                        {{ __('غذاها') }}
-                    </button>
-                </a>
+
             </div>
         </form>
+        <a href="{{route('foods.index')}}" class="ml-4">
+            <button class="bg-pink-500 hover-bg-pink-700 text-white font-bold py-2 px-4 rounded">
+                {{ __('غذاها') }}
+            </button>
+        </a>
     </div>
 </x-app-layout>
 </body>

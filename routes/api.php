@@ -14,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/hello',function ()
+{
+    return response('hello');
 });
+Route::post('register',[\App\Http\Controllers\AuthController::class,'register']);
+Route::post('login',[\App\Http\Controllers\AuthController::class,'login']);
+
+Route::prefix('addresses')->controller(\App\Http\Controllers\AddressController::class)->name('addresses.')->group(function (){
+    Route::get('/','index')->name('index');
+    Route::get('/{{address}}','show')->name('show');
+    Route::post('/','store')->name('.store');
+    Route::put('/{{address}}','update')->name('.update');
+    Route::delete('/{{address}}','destroy')->name('.destroy');
+    Route::patch('/{{address}}','UpdateUserAddress');
+});
+

@@ -15,7 +15,7 @@ class FoodController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny',Food::class);
+//        $this->authorize('viewAny',Food::class);
         return view('food.index',[
             'foods'=>Food::query()->where('restaurant_id',Auth::user()->restaurant->id)->get()
         ]);

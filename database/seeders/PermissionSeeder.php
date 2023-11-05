@@ -15,6 +15,11 @@ class PermissionSeeder extends Seeder
     {
         DB::table('permissions')->insert([
             [
+                'name'=>'viewAny_restaurants',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
                 'name' => 'create-category', //create , store
                 'created_at' => now(),
                 'updated_at' => now()
