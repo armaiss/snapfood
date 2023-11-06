@@ -50,6 +50,12 @@
                 {{ __('غذاها') }}
             </button>
         </a>
+        <a href="{{route('restaurants.index')}}" class="ml-4">
+            <button class="bg-pink-500 hover-bg-pink-700 text-white font-bold py-2 px-4 rounded">
+                {{ __('رستوران ها') }}
+            </button>
+        </a>
+
     </div>
 </x-app-layout>
 </body>

@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Laravel\Jetstream\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
 {
@@ -19,7 +18,9 @@ class RoleSeeder extends Seeder
             ['name'=>'admin'],
             ['name'=>'shop_manager']
         ]);
-        \Spatie\Permission\Models\Role::query()->first()->syncPermissions(Permission::all());
-        \Spatie\Permission\Models\Role::query()->find('2')->syncPermissions([]);
+        Role::query()->first()->syncPermissions(Permission::all());
+        Role::query() ->where('name', 'Shop_manager')->first()
+            ->syncPermissions(Permission::query()->whereIn('id', [7, 8, 9, 10, 11])->get());
+
     }
 }

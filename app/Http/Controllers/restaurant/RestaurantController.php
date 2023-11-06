@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\address\restaurant;
+namespace App\Http\Controllers\restaurant;
 
-use App\Models\FoodCategory;
+use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
-use App\Http\Requests\StoreRestaurantRequest;
-use App\Http\Requests\UpdateRestaurantRequest;
+use App\Http\Requests\restaurant\StoreRestaurantRequest;
+use App\Http\Requests\restaurant\UpdateRestaurantRequest;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
@@ -16,7 +16,9 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        //
+        $restaurants = Restaurant::orderBy('name')->get();
+
+        return view('restaurant.index', ['restaurants' => $restaurants]);
     }
 
     /**
@@ -24,7 +26,7 @@ class RestaurantController extends Controller
      */
     public function create()
     {
-        $this->authorize('create',Restaurant::class);
+        $this->authorize('create', Restaurant::class);
         return view('restaurant.create');
     }
 
@@ -34,7 +36,7 @@ class RestaurantController extends Controller
     public function store(StoreRestaurantRequest $request)
     {
 //        dd($request->all());
-        $this->authorize('create',Restaurant::class);
+        $this->authorize('create', Restaurant::class);
         Restaurant::query()->create($request->validated());
         Auth::user()->assignRole(Role::query()->find('2'));
         return redirect()->route('dashboard');
@@ -53,8 +55,8 @@ class RestaurantController extends Controller
      */
     public function edit(Restaurant $restaurant)
     {
-        $this->authorize('update',$restaurant);
-        return view('restaurant.edit',['restaurant'=>$restaurant]);
+        $this->authorize('update', $restaurant);
+        return view('restaurant.edit', ['restaurant' => $restaurant]);
 
     }
 
@@ -63,9 +65,9 @@ class RestaurantController extends Controller
      */
     public function update(UpdateRestaurantRequest $request, Restaurant $restaurant)
     {
-        $this->authorize('update',$restaurant);
+        $this->authorize('update', $restaurant);
         $restaurant->update($request->validated());
-        return redirect()->route('restaurants.edit',$restaurant);
+        return redirect()->route('restaurants.edit', $restaurant);
 
     }
 
@@ -78,4 +80,58 @@ class RestaurantController extends Controller
 //        $restaurant->delete();
 //
     }
+
+    public function indexApi()
+    {
+        $restaurants = Restaurant::all(); // دریافت تمام رستوران‌ها
+
+        $response = [];
+        foreach ($restaurants as $restaurant) {
+            $data = [
+                'id' => $restaurant->id,
+                'title' => $restaurant->title,
+                'type' => $restaurant->type,
+                'address' => [
+                    'address' => $restaurant->address,
+                    'latitude' => $restaurant->latitude,
+                    'longitude' => $restaurant->longitude,
+                ],
+                'is_open' => $restaurant->is_open,
+                'image' => $restaurant->image,
+                'score' => $restaurant->score,
+            ];
+
+            $response[] = $data;
+        }
+
+        return response()->json($response);
+    }
+
+    public function showApi($restaurant_id)
+    {
+
+        $restaurant = Restaurant::find($restaurant_id);
+
+        if (!$restaurant) {
+            return response()->json(['error' => 'not found'], 404);
+        }
+
+        $data = [
+            'id' => $restaurant->id,
+            'title' => $restaurant->title,
+            'type' => $restaurant->type,
+            'address' => [
+                'address' => $restaurant->address,
+                'latitude' => $restaurant->latitude,
+                'longitude' => $restaurant->longitude,
+            ],
+            'is_open' => $restaurant->is_open,
+            'image' => $restaurant->image,
+            'score' => $restaurant->score,
+        ];
+        return response()->json($data);
+    }
 }
+
+
+

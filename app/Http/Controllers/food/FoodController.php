@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Requests\address\food;
+namespace App\Http\Controllers\food;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\food\StoreFoodRequest;
+use App\Http\Requests\food\UpdateFoodRequest;
 use App\Models\Food;
-use App\Http\Requests\StoreFoodRequest;
-use App\Http\Requests\UpdateFoodRequest;
-use App\Models\FoodCategory;
+
 use Illuminate\Support\Facades\Auth;
 
 class FoodController extends Controller
