@@ -21,6 +21,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreignId("current_address")->nullable()->default(null)
+                ->constrained('addresses') ;
         });
 
     }

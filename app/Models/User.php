@@ -32,7 +32,9 @@ class User extends Authenticatable
         'password',
         'role',
         'email_verified_at',
-        'phone_number'
+        'phone_number',
+        'current_address',
+
     ];
 
     /**
@@ -54,6 +56,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'password'=>'hashed'
     ];
 
     /**
@@ -68,5 +71,10 @@ class User extends Authenticatable
     public function restaurant(): HasOne
     {
         return $this->hasOne(Restaurant::class);
+    }
+
+    public function addresses()
+    {
+        return $this->belongsToMany(Address::class);
     }
 }

@@ -18,15 +18,20 @@ Route::get('/hello',function ()
 {
     return response('hello');
 });
-Route::post('register',[\App\Http\Requests\address\AuthController::class,'register']);
-Route::post('login',[\App\Http\Requests\address\AuthController::class,'login']);
+Route::post('register',[\App\Http\Controllers\AuthController::class ,'register']);
+Route::post('login',[\App\Http\Controllers\AuthController::class,'login']);
+Route::middleware('auth:sanctum')->group(function (){
+    Route::prefix('addresses')->controller(\App\Http\Controllers\AddressController::class)->name('addresses.')->group(function (){
+        Route::get('/','index')->name('index');
+        Route::get('/{address}','show')->name('show');
+        Route::post('/','store')->name('.store');
+        Route::put('/{address}','update')->name('.update');
+        Route::delete('/{address}','destroy')->name('.destroy');
+        Route::patch('/{address}','UpdateUserAddress');
 
-Route::prefix('addresses')->controller(\App\Http\Requests\address\AddressController::class)->name('addresses.')->group(function (){
-    Route::get('/','index')->name('index');
-    Route::get('/{{address}}','show')->name('show');
-    Route::post('/','store')->name('.store');
-    Route::put('/{{address}}','update')->name('.update');
-    Route::delete('/{{address}}','destroy')->name('.destroy');
-    Route::patch('/{{address}}','UpdateUserAddress');
+    });
 });
-
+//Route::prefix('restaurants')->controller(\App\Http\Controllers\)->name('restaurants.')->group(function () {
+//    Route::get('/','index')->name('index');
+//    Route::get('/{restaurants}','show')->name('show');
+//});
