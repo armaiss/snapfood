@@ -85,7 +85,7 @@ class RestaurantController extends Controller
     {
         $restaurants = Restaurant::all(); // دریافت تمام رستوران‌ها
 
-        $response = [];
+        $data = [];
         foreach ($restaurants as $restaurant) {
             $data = [
                 'id' => $restaurant->id,
@@ -101,10 +101,9 @@ class RestaurantController extends Controller
                 'score' => $restaurant->score,
             ];
 
-            $response[] = $data;
         }
 
-        return response()->json($response);
+        return response()->json($data);
     }
 
     public function showApi($restaurant_id)

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\food;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\food\StoreFoodRequest;
 use App\Http\Requests\food\UpdateFoodRequest;
+use App\Models\Address;
 use App\Models\Food;
 
 use Illuminate\Support\Facades\Auth;
@@ -78,5 +79,22 @@ class FoodController extends Controller
         $this->authorize('delete',$food);
         $food->delete();
         return redirect()->route('foods.index');
+    }
+
+    public function showApi(Address $address)
+    {
+        $foods = Food::query()->where('restaurant_id',$address->id)->get();
+        $data = [];
+        foreach ($foods as $food){
+            $data =[
+                 'id'=>$food->id,
+                'name'=>$food->name,
+                'materials'=>$food->materials,
+                'price'=>$food->price,
+                'image'=>$food->image,
+                'discount'=>$food->discount
+            ];
+        }
+        return response()->json($data);
     }
 }
