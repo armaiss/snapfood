@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\restaurant;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RestaurantResource;
 use App\Models\Restaurant;
 use App\Http\Requests\restaurant\StoreRestaurantRequest;
 use App\Http\Requests\restaurant\UpdateRestaurantRequest;
@@ -83,52 +84,12 @@ class RestaurantController extends Controller
 
     public function indexApi()
     {
-        $restaurants = Restaurant::all(); // دریافت تمام رستوران‌ها
-
-        $data = [];
-        foreach ($restaurants as $restaurant) {
-            $data = [
-                'id' => $restaurant->id,
-                'title' => $restaurant->title,
-                'type' => $restaurant->type,
-                'address' => [
-                    'address' => $restaurant->address,
-                    'latitude' => $restaurant->latitude,
-                    'longitude' => $restaurant->longitude,
-                ],
-                'is_open' => $restaurant->is_open,
-                'image' => $restaurant->image,
-                'score' => $restaurant->score,
-            ];
-
-        }
-
-        return response()->json($data);
+//        return resopnse(new RestaurantResource);
     }
 
-    public function showApi($restaurant_id)
+    public function showApi(Restaurant $restaurant)
     {
-
-        $restaurant = Restaurant::find($restaurant_id);
-
-        if (!$restaurant) {
-            return response()->json(['error' => 'not found'], 404);
-        }
-
-        $data = [
-            'id' => $restaurant->id,
-            'title' => $restaurant->title,
-            'type' => $restaurant->type,
-            'address' => [
-                'address' => $restaurant->address,
-                'latitude' => $restaurant->latitude,
-                'longitude' => $restaurant->longitude,
-            ],
-            'is_open' => $restaurant->is_open,
-            'image' => $restaurant->image,
-            'score' => $restaurant->score,
-        ];
-        return response()->json($data);
+        return new RestaurantResource($restaurant);
     }
 }
 

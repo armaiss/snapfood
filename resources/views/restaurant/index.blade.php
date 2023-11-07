@@ -22,7 +22,7 @@
 
             <td class="p-4 border">{{ $restaurant->user_id }}</td>
             <td class="p-4 border">{{ $restaurant->name }}</td>
-            <td class="p-4 border">{{ $restaurant->restaurant_ategory_id }}</td>
+            <td class="p-4 border">{{ $restaurant->restaurantCategory->name }}</td>
             <td class="p-4 border">{{ $restaurant->telephone }}</td>
             <td class="p-4 border">{{ $restaurant->address }}</td>
             <td class="p-4 border">

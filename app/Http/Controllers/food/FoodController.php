@@ -8,6 +8,7 @@ use App\Http\Requests\food\UpdateFoodRequest;
 use App\Models\Address;
 use App\Models\Food;
 
+use App\Models\Restaurant;
 use Illuminate\Support\Facades\Auth;
 
 class FoodController extends Controller
@@ -17,7 +18,7 @@ class FoodController extends Controller
      */
     public function index()
     {
-//        $this->authorize('viewAny',Food::class);
+      $this->authorize('viewAny',Food::class);
         return view('food.index',[
             'foods'=>Food::query()->where('restaurant_id',Auth::user()->restaurant->id)->get()
         ]);
@@ -81,20 +82,9 @@ class FoodController extends Controller
         return redirect()->route('foods.index');
     }
 
-    public function showApi(Address $address)
+    public function showApi(Restaurant $restaurant)
     {
-        $foods = Food::query()->where('restaurant_id',$address->id)->get();
-        $data = [];
-        foreach ($foods as $food){
-            $data =[
-                 'id'=>$food->id,
-                'name'=>$food->name,
-                'materials'=>$food->materials,
-                'price'=>$food->price,
-                'image'=>$food->image,
-                'discount'=>$food->discount
-            ];
-        }
-        return response()->json($data);
+       $foods= ($restaurant->foods);
+
     }
 }

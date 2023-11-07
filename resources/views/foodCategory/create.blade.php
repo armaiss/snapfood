@@ -11,6 +11,9 @@
 <body class="bg-pink-100 flex items-center justify-center h-screen">
 <form method="post" action="{{route('foodCategories.store')}}">
     @csrf
+    @error('name')
+    {{$message}}
+    @enderror
     <input type="text" name="name" >
     <input type="submit">
 </form>

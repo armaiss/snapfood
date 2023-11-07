@@ -14,4 +14,11 @@ class Address extends Model
         'address',
         'longitude',
         'latitude'];
+
+    public function addressUser()
+    {
+        return $this->hasMany(AddressUser::class);
+
+        }
 }
+

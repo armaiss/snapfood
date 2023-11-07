@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\address\StoreAddressRequest;
+use App\Http\Resources\AddressResource;
 use App\Models\Address;
 use App\Models\AddressUser;
 use http\Env\Response;
@@ -20,10 +21,9 @@ class AddressController extends Controller
      */
     public function index(): \Illuminate\Foundation\Application|\Illuminate\Http\Response|Application|ResponseFactory
     {
-        $addresses = Auth::user()->addresses;
-        return response([
-            'addresses' => $addresses
-        ]);
+        $this->authorize('myAddress',$address);
+        return resopnse(AddressResource::collection($address));
+
     }
 
     /**

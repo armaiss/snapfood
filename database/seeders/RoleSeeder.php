@@ -18,7 +18,7 @@ class RoleSeeder extends Seeder
             ['name'=>'admin'],
             ['name'=>'shop_manager']
         ]);
-        Role::query()->first()->syncPermissions(Permission::all());
+        Role::query()->where('name','admin')->first()->syncPermissions(Permission::all());
         Role::query() ->where('name', 'Shop_manager')->first()
             ->syncPermissions(Permission::query()->whereIn('id', [7, 8, 9, 10, 11])->get());
 

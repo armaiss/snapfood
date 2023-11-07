@@ -22,10 +22,7 @@ class StoreFoodCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=>'required',
-            'address'=>'required',
-            'latitude'=>'required',
-            'longitude'=>'required',
+            'name'=>'required'
         ];
     }
 }

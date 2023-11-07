@@ -31,11 +31,12 @@ class RestaurantCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRestaurantCategoryRequest $request)
+    public function store(StoreRestaurantCategoryRequest $request): \Illuminate\Http\RedirectResponse
     {
         $this->authorize('create',RestaurantCategory::class);
         RestaurantCategory::query()->create($request->validated());
         return redirect()->route('restaurantCategories.index');
+
     }
 
     /**

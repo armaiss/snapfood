@@ -26,6 +26,7 @@ class FoodCategoryController extends Controller
     {
         $this->authorize('create',FoodCategory::class);
         return view('foodCategory.create');
+
     }
 
     /**
@@ -35,6 +36,7 @@ class FoodCategoryController extends Controller
     {
         $this->authorize('create',FoodCategory::class);
         FoodCategory::query()->create($request->validated());
+        return redirect()->route('foodCategories.index');
 
     }
 

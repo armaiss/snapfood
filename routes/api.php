@@ -31,8 +31,8 @@ Route::middleware('auth:sanctum')->group(function (){
 
     });
 });
-Route::prefix('restaurants')->controller(\App\Http\Controllers\restaurant\RestaurantController::class)->name('restaurants.')->group(function () {
+Route::prefix('restaurant')->controller(\App\Http\Controllers\restaurant\RestaurantController::class)->name('restaurants.')->group(function () {
     Route::get('/','indexApi')->name('index');
-    Route::get('/{restaurants}','showApi')->name('show');
-    Route::get('/{restaurants}/foods','showApi')->name('Foods');
+    Route::get('/{restaurant}','showApi')->name('show');
+    Route::get('/{restaurant}/foods','showApi')->name('Foods');
 });
