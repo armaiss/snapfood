@@ -19,24 +19,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('telephone');
             $table->string('bank_account_number');
+            $table->decimal('longitude')->nullable()->default(null);
+            $table->decimal('latitude')->nullable()->default(null);
             $table->decimal('cost_of_sending_order', 10, 2)->nullable()->default(null);
+            $table->boolean('is_open')->default(1);
             $table->boolean('status')->default(1);
-
-            // اضافه کردن فیلدهای ساعت باز و بسته شدن برای هر روز هفته
-            $table->string('monday_opening');
-            $table->string('monday_closing');
-            $table->string('tuesday_opening');
-            $table->string('tuesday_closing');
-            $table->string('wednesday_opening');
-            $table->string('wednesday_closing');
-            $table->string('thursday_opening');
-            $table->string('thursday_closing');
-            $table->string('friday_opening');
-            $table->string('friday_closing');
-            $table->string('saturday_opening');
-            $table->string('saturday_closing');
-            $table->string('sunday_opening');
-            $table->string('sunday_closing');
+            $table->string('score')->nullable()->default(null);
 
             $table->timestamps();
         });
