@@ -5,10 +5,14 @@ namespace App\Http\Controllers\food;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\food\StoreFoodRequest;
 use App\Http\Requests\food\UpdateFoodRequest;
+use App\Http\Resources\FoodCategoryCollection;
+use App\Http\Resources\FoodCategoryResource;
 use App\Models\Address;
 use App\Models\Food;
 
+use App\Models\FoodCategory;
 use App\Models\Restaurant;
+use http\Env\Response;
 use Illuminate\Support\Facades\Auth;
 
 class FoodController extends Controller
@@ -82,9 +86,14 @@ class FoodController extends Controller
         return redirect()->route('foods.index');
     }
 
-    public function showApi(Restaurant $restaurant)
+    public function indexApi(Restaurant $restaurant)
     {
-       $foods= ($restaurant->foods);
-
+       $foods= $restaurant->foods;
+        $category_id = [];
+        foreach ($foods as $food){
+            $category_id[] = $food->food_category_id;
+           $response = new FoodCategoryCollection(FoodCategory::query()->whereIn('id',$category_id)->get());
+            return response($response , 200);
+        }
     }
 }

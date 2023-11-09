@@ -14,25 +14,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/hello',function ()
-{
+Route::get('/hello', function () {
     return response('hello');
 });
-Route::post('register',[\App\Http\Controllers\AuthController::class ,'register']);
-Route::post('login',[\App\Http\Controllers\AuthController::class,'login']);
-Route::middleware('auth:sanctum')->group(function (){
-    Route::prefix('addresses')->controller(\App\Http\Controllers\AddressController::class)->name('addresses.')->group(function (){
-        Route::get('/','index')->name('index');
-        Route::get('/{address}','show')->name('show');
-        Route::post('/','store')->name('.store');
-        Route::put('/{address}','update')->name('.update');
-        Route::delete('/{address}','destroy')->name('.destroy');
-        Route::patch('/{address}','UpdateUserAddress');
+Route::post('register', [\App\Http\Controllers\AuthController::class, 'register']);
+Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('addresses')->controller(\App\Http\Controllers\AddressController::class)->name('addresses.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/{address}', 'show')->name('show');
+        Route::post('/', 'store')->name('.store');
+        Route::put('/{address}', 'update')->name('.update');
+        Route::delete('/{address}', 'destroy')->name('.destroy');
+        Route::patch('/{address}', 'UpdateUserAddress');
 
     });
+
+Route::prefix('restaurants')->controller(\App\Http\Controllers\restaurant\RestaurantController::class)
+    ->name('restaurants.')->group(function () {
+    Route::get('/', 'indexApi')->name('index');
+    Route::get('/{restaurant}', 'showApi')->name('show');
 });
-Route::prefix('restaurant')->controller(\App\Http\Controllers\restaurant\RestaurantController::class)->name('restaurants.')->group(function () {
-    Route::get('/','indexApi')->name('index');
-    Route::get('/{restaurant}','showApi')->name('show');
-    Route::get('/{restaurant}/foods','showApi')->name('Foods');
+Route::get('/restaurants/{restaurant}/foods', [\App\Http\Controllers\food\FoodController::class,'indexApi'])->name('Foods');
+
+Route::prefix('carts')->controller(\App\Http\Controllers\CartController::class)->group(function (){
+    Route::get('/','index')->name('.index');
+    Route::post('/add','store')->name('.store');
+    Route::patch('/{cart}','update')->name('.update');
+});
 });

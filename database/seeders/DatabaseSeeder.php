@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\FoodCategory;
 use App\Models\Restaurant;
+use App\Models\RestaurantCategory;
 use Couchbase\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -18,18 +19,36 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([PermissionSeeder::class, RoleSeeder::class]);
 
-        $user = \App\Models\User::query()->create([
+        $admin = \App\Models\User::query()->create([
             'name' => 'zahra',
             'email' => 'zahra@gmail.com',
             'password' => bcrypt('zahra'),
             'phone_number' => '09197521026',
         ]);
-        $user->assignRole(Role::query()->first());
+        $admin->assignRole(Role::findByName('admin'));
+
+        $user = \App\Models\User::query()->create([
+            'name' => 'sara',
+            'email' => 'sara@gmail.com',
+            'password' => bcrypt('11111111'),
+            'phone_number' => '09197521025',
+        ]);
+        $user->assignRole(Role::findByName('shop_manager'));
+        $rcat1 = RestaurantCategory::query()->create([
+            'name' => 'فست فود'
+        ]);
+        $rcat2= RestaurantCategory::query()->create([
+            'name' => 'سنتی'
+        ]);
+        $rcat3=RestaurantCategory::query()->create([
+            'name' => 'کافی شاپ'
+        ]);
+
         FoodCategory::query()->create([
             'name' => 'سالاد'
         ]);
         $cat1 = FoodCategory::query()->create([
-            'name' => 'فست فود'
+            'name' => 'پیتزا'
         ]);
         $cat2 = FoodCategory::query()->create([
             'name' => 'ایرانی'
@@ -41,11 +60,12 @@ class DatabaseSeeder extends Seeder
             'name' => 'فرنگی'
         ]);
         Restaurant::query()->create([
-            'user_id' => $user->id,
-            'restaurant_category_id' => $cat1->id,
-            'address'=>'address',
-            'name'=>'adminRestaurant',
+            'user_id'=>$user->id,
+            'restaurant_category_id' =>$rcat1->id,
+            'address'=>'',
+            'name'=>'Restaurant',
             'telephone'=>'09197521026',
+            'bank_account_number'=>"1242387459256",
             'longitude'=>'40',
             'latitude'=>'40'
         ]);

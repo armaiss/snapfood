@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Card;
+use App\Models\comment;
 use Illuminate\Http\Request;
 
-class CardController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class CardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Card $card)
+    public function show(comment $comment)
     {
         //
     }
@@ -42,7 +42,7 @@ class CardController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Card $card)
+    public function edit(comment $comment)
     {
         //
     }
@@ -50,7 +50,7 @@ class CardController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Card $card)
+    public function update(Request $request, comment $comment)
     {
         //
     }
@@ -58,7 +58,7 @@ class CardController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Card $card)
+    public function destroy(comment $comment)
     {
         //
     }

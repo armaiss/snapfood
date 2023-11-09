@@ -16,9 +16,9 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
-                    <x-nav-link href="{{ route('foodCategories.index') }}" :active="request()->routeIs('dashboard')">
-                        {{'مدیریت دسته بندی غذاها'}}
-                    </x-nav-link>
+                        <x-nav-link href="{{ route('foodCategories.index') }}" :active="request()->routeIs('dashboard')">
+                            {{'مدیریت دسته بندی غذاها'}}
+                        </x-nav-link>
                         <x-nav-link href="{{ route('restaurantCategories.index') }}" :active="request()->routeIs('dashboard')">
                             {{'مدیریت دسته بندی رستوران ها '}}
                         </x-nav-link>
@@ -31,7 +31,7 @@
                     @endif
                     @if(Auth::user()->hasRole('shop_manager') )
                         <x-nav-link href="{{ route('restaurants.edit',\Illuminate\Support\Facades\Auth::user()->restaurant ) }}" :active="request()->routeIs('dashboard')">
-                            {{'مدیریت رستوران'}}
+                            {{'اضافه کردن رستوران'}}
                         </x-nav-link>
                     @endif
 
@@ -135,7 +135,7 @@
                                 @csrf
 
                                 <x-dropdown-link href="{{ route('logout') }}"
-                                         @click.prevent="$root.submit();">
+                                                 @click.prevent="$root.submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>
@@ -196,7 +196,7 @@
                     @csrf
 
                     <x-responsive-nav-link href="{{ route('logout') }}"
-                                   @click.prevent="$root.submit();">
+                                           @click.prevent="$root.submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
                 </form>

@@ -19,7 +19,7 @@ class RestaurantController extends Controller
     {
         $restaurants = Restaurant::orderBy('name')->get();
 
-        return view('restaurant.index', ['restaurants' => $restaurants]);
+        return view('restaurants.index', ['restaurants' => $restaurants]);
     }
 
     /**
@@ -75,21 +75,15 @@ class RestaurantController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Restaurant $restaurant)
-    {
-//        $this->authorize('delete',$restaurant);
-//        $restaurant->delete();
-//
-    }
 
-    public function indexApi()
+    public function indexApi(Restaurant $restaurant)
     {
-//        return resopnse(new RestaurantResource);
+      return response(RestaurantResource::collection(Restaurant::all()));
     }
 
     public function showApi(Restaurant $restaurant)
     {
-        return new RestaurantResource($restaurant);
+    return response(new RestaurantResource($restaurant));
     }
 }
 
