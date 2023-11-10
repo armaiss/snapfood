@@ -15,7 +15,7 @@ class Cart extends Model
         return $this->belongsTo(Restaurant::class);
     }
 
-    public function food()
+    public function foods()
     {
         return $this->belongsToMany(Food::class);
     }
@@ -29,6 +29,11 @@ class Cart extends Model
     {
         return $this->hasMany(CartFood::class);
     }
+    public function comments()
+    {
+        return $this->hasMany(comment::class);
+    }
+
 
 
 }

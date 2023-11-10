@@ -19,7 +19,7 @@ class RestaurantController extends Controller
     {
         $restaurants = Restaurant::orderBy('name')->get();
 
-        return view('restaurants.index', ['restaurants' => $restaurants]);
+        return view('restaurant.index', ['restaurants' => $restaurants]);
     }
 
     /**

@@ -35,11 +35,15 @@ Route::prefix('restaurants')->controller(\App\Http\Controllers\restaurant\Restau
     Route::get('/', 'indexApi')->name('index');
     Route::get('/{restaurant}', 'showApi')->name('show');
 });
+//food
 Route::get('/restaurants/{restaurant}/foods', [\App\Http\Controllers\food\FoodController::class,'indexApi'])->name('Foods');
-
+//cart
 Route::prefix('carts')->controller(\App\Http\Controllers\CartController::class)->group(function (){
     Route::get('/','index')->name('.index');
     Route::post('/add','store')->name('.store');
     Route::patch('/{cart}','update')->name('.update');
+    Route::get('/{cart}','show')->name('.show');
 });
+    Route::get('/comments',[\App\Http\Controllers\CommentController::class, 'index'])->name('index');
+    Route::post('/comments',[\App\Http\Controllers\CommentController::class, 'show'])->name('show');
 });

@@ -51,6 +51,7 @@ class CartController extends Controller
             'food_id'=>$foodId,
             'count'=>$count,
         ]);
+        dd(Auth::user());
 
 
     }
@@ -94,8 +95,8 @@ $cart->update([
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cart $card)
+    public function pay (Cart $card)
     {
-        //
+
     }
 }

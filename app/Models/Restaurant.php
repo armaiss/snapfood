@@ -24,5 +24,10 @@ class Restaurant extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function comments()
+    {
+        return $this->hasManyThrough(Comment::Class,Cart::class,'restaurant_id','cart_id');
+    }
+
 
 }
