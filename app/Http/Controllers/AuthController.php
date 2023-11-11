@@ -38,9 +38,10 @@ class AuthController extends Controller
                 'token' => $token,
                 'message' => 'login Successfully'
             ]);
-        } else return response([
-            'message'=>'user not registered'
-        ]);
+        }
+//        else return response([
+//            'message'=>'user not registered'
+//        ]);
     }
 
 }

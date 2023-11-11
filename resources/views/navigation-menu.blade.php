@@ -12,8 +12,12 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('داشبورد') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('allFoods') }}" :active="request()->routeIs('allFood')">
+                        {{'لیست غذاها'}}
                     </x-nav-link>
                     @if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
                         <x-nav-link href="{{ route('foodCategories.index') }}" :active="request()->routeIs('dashboard')">
@@ -31,9 +35,10 @@
                     @endif
                     @if(Auth::user()->hasRole('shop_manager') )
                         <x-nav-link href="{{ route('restaurants.edit',\Illuminate\Support\Facades\Auth::user()->restaurant ) }}" :active="request()->routeIs('dashboard')">
-                            {{'اضافه کردن رستوران'}}
+                            {{'مدیریت رستوران'}}
                         </x-nav-link>
                     @endif
+
 
                 </div>
             </div>

@@ -19,10 +19,12 @@ class AddressController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): \Illuminate\Foundation\Application|\Illuminate\Http\Response|Application|ResponseFactory
+    public function index()
     {
-        $this->authorize('myAddress',$address);
-        return resopnse(AddressResource::collection($address));
+
+        $addresses = Auth::user()->addresses;
+        return  response(AddressResource::collection($addresses));
+
 
     }
 
@@ -31,6 +33,7 @@ class AddressController extends Controller
      */
     public function store(StoreAddressRequest $request)
     {
+       
         $address = Address::query()->create($request->validated());
         AddressUser::query()->create([
             'user_id' => Auth::user()->id,

@@ -6,21 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\food\StoreFoodRequest;
 use App\Http\Requests\food\UpdateFoodRequest;
 use App\Http\Resources\FoodCategoryCollection;
-use App\Http\Resources\FoodCategoryResource;
-use App\Models\Address;
 use App\Models\Food;
 
 use App\Models\FoodCategory;
 use App\Models\Restaurant;
-use http\Env\Response;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
 class FoodController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * @throws AuthorizationException
      */
-    public function index()
+    public function index(): View|\Illuminate\Foundation\Application|Factory|Application
     {
       $this->authorize('viewAny',Food::class);
         return view('food.index',[
@@ -86,6 +88,14 @@ class FoodController extends Controller
         return redirect()->route('foods.index');
     }
 
+    public function products()
+    {
+        $foods = Food::all();
+//        dd($products);
+        return view('food.products',compact('foods'));
+
+    }
+//api methods:
     public function indexApi(Restaurant $restaurant)
     {
        $foods= $restaurant->foods;
@@ -93,7 +103,9 @@ class FoodController extends Controller
         foreach ($foods as $food){
             $category_id[] = $food->food_category_id;
            $response = new FoodCategoryCollection(FoodCategory::query()->whereIn('id',$category_id)->get());
-            return response($response , 200);
+
         }
+        return response($response , 200);
     }
+
 }

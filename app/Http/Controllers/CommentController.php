@@ -33,9 +33,14 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): Application|Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
+    public function store(Request $request)
     {
-    Comment::query()->create($request->validate());
+
+    Comment::query()->create($request->validate([
+        'cart_id'=>['required'],
+        'score'=>['required'],
+        'content'=>['required','string']
+    ]));
      return response([
          'massage'=> 'your comment added successfully.'
      ]);

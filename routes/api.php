@@ -45,5 +45,5 @@ Route::prefix('carts')->controller(\App\Http\Controllers\CartController::class)-
     Route::get('/{cart}','show')->name('.show');
 });
     Route::get('/comments',[\App\Http\Controllers\CommentController::class, 'index'])->name('index');
-    Route::post('/comments',[\App\Http\Controllers\CommentController::class, 'show'])->name('show');
+    Route::post('/comments',[\App\Http\Controllers\CommentController::class, 'store'])->name('show');
 });

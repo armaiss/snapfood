@@ -51,7 +51,6 @@ class CartController extends Controller
             'food_id'=>$foodId,
             'count'=>$count,
         ]);
-        dd(Auth::user());
 
 
     }

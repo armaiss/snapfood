@@ -25,7 +25,7 @@ class CommentResource extends JsonResource
             ],
             'created_at'=>$this->created_at,
             'score'=>$this->score,
-            'content'=>$this->comment,
+            'content'=>$this->content,
 
         ];
     }

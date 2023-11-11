@@ -33,4 +33,5 @@ Route::prefix('dashboard')->middleware('auth')->group(function (){
     Route::resource('restaurantCategories', \App\Http\Controllers\restaurant\RestaurantCategoryController::class);
     Route::resource('restaurants', \App\Http\Controllers\restaurant\RestaurantController::class);
     Route::resource('foods', \App\Http\Controllers\food\FoodController::class);
+    Route::get('allFoods', [\App\Http\Controllers\food\FoodController::class,'products'])->name('allFoods');
 });

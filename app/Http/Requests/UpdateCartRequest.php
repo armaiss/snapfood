@@ -22,8 +22,8 @@ class UpdateCartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'food_id'=>['requried','numeric'],
-            'count'=>['requried','numeric']
+            'food_id'=>['required','numeric'],
+            'count'=>['required','numeric']
         ];
     }
 }
