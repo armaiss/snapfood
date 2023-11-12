@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('restaurant_id')->constrained()->cascadeOnDelete();
             $table->boolean('is_paid')->default(0);
             $table->string('total_price');
+            $table->string('total_price');
             $table->timestamps();
 //            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 //            $table->foreign('food_id')- >references('id')->on('foods')->onDelete('cascade');

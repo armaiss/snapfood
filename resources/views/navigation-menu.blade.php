@@ -38,6 +38,9 @@
                             {{'مدیریت رستوران'}}
                         </x-nav-link>
                     @endif
+                    <x-nav-link href="{{ route('order.index') }}" :active="request()->routeIs('dashboard')">
+                        {{'لیست سفارشات'}}
+                    </x-nav-link>
 
 
                 </div>

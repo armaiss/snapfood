@@ -16,7 +16,7 @@
         <th class="p-4 border">نوع</th>
         <th class="p-4 border">قیمت</th>
         <th class="p-4 border">تخفیف</th>
-        <th class="p-4 border">عملیات</th>
+        <th class="p-4 border">رستوران</th>
     </tr>
     @foreach($foods as $food)
         <tr>
@@ -25,6 +25,7 @@
             <td class="p-4 border">{{ $food->materials }}</td>
             <td class="p-4 border">{{ $food->price }}</td>
             <td class="p-4 border">{{ $food->discount }}</td>
+            <td class="p-4 border">{{ $food->restaurant->name }}</td>
             <td class="p-4 border">
                 <div class="flex mt-4">
                     <form action="{{ route('foods.destroy', $food) }}" method="post">

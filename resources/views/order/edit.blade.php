@@ -43,7 +43,7 @@
             <label for="category" class="block text-pink-700 text-sm font-medium">Category</label>
             <select id="category" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text" name="food_category_id">
                 @foreach(\App\Models\FoodCategory::all() as $category)
-                <option value="{{ $category->id }}"> {{ $category->name }}</option>
+                    <option value="{{ $category->id }}"> {{ $category->name }}</option>
                 @endforeach
             </select>
         </div>
@@ -54,6 +54,12 @@
             <button class="bg-pink-500 text-white px-4 py-2 rounded">Submit</button>
         </div>
     </form>
+
 </div>
+<a href="{{route('dashboard')}}" class="ml-4">
+    <button class="bg-pink-500 hover-bg-pink-700 text-white font-bold py-2 px-4 rounded">
+        {{ __('داشبورد') }}
+    </button>
+</a>
 </body>
 </html>
