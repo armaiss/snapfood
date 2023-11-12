@@ -27,13 +27,15 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-Route::prefix('dashboard')->middleware('auth')->group(function (){
+Route::prefix('dashboard')->middleware('auth')->group(function () {
 
     Route::resource('foodCategories', \App\Http\Controllers\food\FoodCategoryController::class);
     Route::resource('restaurantCategories', \App\Http\Controllers\restaurant\RestaurantCategoryController::class);
     Route::resource('restaurants', \App\Http\Controllers\restaurant\RestaurantController::class);
     Route::resource('foods', \App\Http\Controllers\food\FoodController::class);
     Route::resource('order', \App\Http\Controllers\OrderController::class);
-    Route::get('allFoods', [\App\Http\Controllers\food\FoodController::class,'products'])->name('allFoods');
-    Route::delete('/orders/{order}', [\App\Http\Controllers\OrderController::class, 'destroy'])->name('orders.destroy');});
+    Route::get('allFoods', [\App\Http\Controllers\food\FoodController::class, 'products'])->name('allFoods');
+    Route::delete('/orders/{order}', [\App\Http\Controllers\OrderController::class, 'destroy'])->name('orders.destroy');
+    Route::put('/orders/{order}', [\App\Http\Controllers\OrderController::class, 'update'])->name('orders.update');
 
+});

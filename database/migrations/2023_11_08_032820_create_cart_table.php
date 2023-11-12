@@ -13,19 +13,21 @@ return new class extends Migration
     public function up()
     {
         Schema::create('carts', function (Blueprint $table) {
-//            $table->string('id')->default(Str::random(8));
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('restaurant_id')->constrained()->cascadeOnDelete();
             $table->boolean('is_paid')->default(0);
             $table->string('total_price');
-//          $table->enum('status', StatusType::getStatus())->default(StatusType::PENDING);
-            $table->string('status')->default('pending');
+            $table->string('status')->default('در حال بررسی');
             $table->timestamps();
+        });
+
+        DB::statement('ALTER TABLE carts ADD CONSTRAINT check_status CHECK (status IN (\'در حال بررسی\', \'در حال تهیه\', \'در حال ارسال\', \'تحویل گرفته شد\'))');
+    }
+
 //            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 //            $table->foreign('food_id')- >references('id')->on('foods')->onDelete('cascade');
-        });
-    }
+
 
 
     /**

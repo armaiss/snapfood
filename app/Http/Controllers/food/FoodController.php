@@ -91,7 +91,6 @@ class FoodController extends Controller
     public function products()
     {
         $foods = Food::all();
-//        dd($products);
         return view('food.products',compact('foods'));
 
     }

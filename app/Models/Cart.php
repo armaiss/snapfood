@@ -11,9 +11,9 @@ class Cart extends Model
 {
     use HasFactory;
     public $guarded =['id'];
-    public  $status =[
-        'status'=>StatusType::class
-    ];
+//    public  $status =[
+//        'status'=>StatusType::class
+//    ];
 
     public function restaurant()
     {

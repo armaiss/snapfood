@@ -32,7 +32,7 @@
             $counter = 1;
         @endphp
         @foreach($orders as $order)
-            @if($order->is_paid != 0)
+            @if($order->is_paid != 0 && $order->status !='تحویل گرفته شد' )
                 <tr>
                     <td class="p-4 border">{{ $counter++ }}</td>
                     <td class="p-10 border ">{{ $order->id }}</td>
@@ -52,12 +52,30 @@
                                     {{ __('حذف') }}
                                 </button>
                             </form>
-                            <a href="{{ route('order.edit', $order) }}" class="ml-4">
-                                <button class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
-                                    {{ __('بروزرسانی') }}
-                                </button>
-                            </a>
                         </div>
+                    </td>
+                    <td>
+                            <form method="post" action="{{ route('orders.update', $order->id) }}">
+                                @csrf
+                                @method('put')
+
+                                <!-- دیگر فیلدهای فرم -->
+
+                                <div class="form-group ">
+
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="{{$order->status }}" selected>{{ $order->status }}</option>
+                                        <option value="در حال بررسی" {{ $order->status == 'در حال بررسی' ? 'selected' : '' }}>در حال بررسی</option>
+                                        <option value="در حال تهیه" {{ $order->status == 'در حال تهیه' ? 'selected' : '' }}>در حال تهیه</option>
+                                        <option value="در حال ارسال" {{ $order->status == 'در حال ارسال' ? 'selected' : '' }}>در حال ارسال</option>
+                                        <option value="تحویل گرفته شد" {{ $order->status == 'تحویل گرفته شد' ? 'selected' : '' }}>تحویل گرفته شد</option>
+                                    </select>
+
+                                    <button type="submit"  class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">اعمال</button>
+                                </div>
+
+
+                            </form>
                     </td>
                 </tr>
             @endif
