@@ -35,5 +35,5 @@ Route::prefix('dashboard')->middleware('auth')->group(function (){
     Route::resource('foods', \App\Http\Controllers\food\FoodController::class);
     Route::resource('order', \App\Http\Controllers\OrderController::class);
     Route::get('allFoods', [\App\Http\Controllers\food\FoodController::class,'products'])->name('allFoods');
-});
+    Route::delete('/orders/{order}', [\App\Http\Controllers\OrderController::class, 'destroy'])->name('orders.destroy');});
 

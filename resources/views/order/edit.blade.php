@@ -13,46 +13,53 @@
     <form method="POST" action="{{ route('foods.update', $food) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-
-        <!-- Name -->
-        <div class="mb-4">
-            <label for="name" class="block text-pink-700 text-sm font-medium">Name</label>
-            <input id="name" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text" name="name" value="{{ $food->name }}">
-        </div>
-
-        <!-- Discount -->
-        <div class="mb-4">
-            <label for="discount" class="block text-pink-700 text-sm font-medium">Discount</label>
-            <input id="discount" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text" name="discount" value="{{ $food->discount }}">
-        </div>
-
-        <!-- Materials -->
-        <div class="mb-4">
-            <label for="materials" class="block text-pink-700 text-sm font-medium">Materials</label>
-            <input id="materials" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text" name="materials" value="{{ $food->materials }}">
-        </div>
-
-        <!-- Price -->
-        <div class="mb-4">
-            <label for="price" class="block text-pink-700 text-sm font-medium">Price</label>
-            <input id="price" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text" name="price" value="{{ $food->price }}">
-        </div>
-
-        <!-- Category -->
-        <div class="mb-4">
-            <label for="category" class="block text-pink-700 text-sm font-medium">Category</label>
-            <select id="category" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text" name="food_category_id">
-                @foreach(\App\Models\FoodCategory::all() as $category)
-                    <option value="{{ $category->id }}"> {{ $category->name }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <input type="hidden" name="restaurant_id" value="{{ Auth::user()->restaurant->id }}">
-
-        <div class="flex items-center justify-end mt-4">
-            <button class="bg-pink-500 text-white px-4 py-2 rounded">Submit</button>
-        </div>
+        <table class="w-full bg-white p-6 shadow-md border rounded-lg overflow-hidden">
+            <thead>
+            <tr>
+                <th class="p-4 border">ردیف</th>
+                <th class="p-4 border">آیدی</th>
+                <th class="p-4 border">نام رستوران</th>
+                <th class="p-4 border">قیمت کل</th>
+                <th class="p-4 border">تاریخ ایجاد</th>
+                <th class="p-4 border">تاریخ بروز رسانی</th>
+                <th class="p-4 border">وضعیت</th>
+                <th class="p-4 border">عملیات</th>
+            </tr>
+            </thead>
+            <tbody>
+            @php
+                $counter = 1;
+            @endphp
+            @foreach($orders as $order)
+                @if($order->is_paid != 0)
+                    <tr>
+                        <td class="p-4 border">{{ $counter++ }}</td>
+                        <td class="p-10 border flex justify-center align-bottom">{{ $order->id }}</td>
+                        <td class="p-4 border">{{ $order->restaurant->name }}</td>
+                        <td class="p-4 border">{{ $order->total_price }}</td>
+                        <td class="p-4 border">{{ $order->created_at }}</td>
+                        <td class="p-4 border">{{ $order->updated_at }}</td>
+                        <td class="p-4 border">
+                            <div class="flex mt-4">
+                                <form action="{{ route('foods.destroy', $order) }}" method="post">
+                                    @csrf
+                                    @method("DELETE")
+                                    <button class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
+                                        {{ __('حذف') }}
+                                    </button>
+                                </form>
+                                <a href="{{ route('order.edit', $order) }}" class="ml-4">
+                                    <button class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
+                                        {{ __('بروزرسانی وضعیت') }}
+                                    </button>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                @endif
+            @endforeach
+            </tbody>
+        </table>
     </form>
 
 </div>

@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
+use App\Enums\StatusType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cart extends Model
 {
     use HasFactory;
     public $guarded =['id'];
+    public  $status =[
+        'status'=>StatusType::class
+    ];
 
     public function restaurant()
     {
@@ -29,7 +34,7 @@ class Cart extends Model
     {
         return $this->hasMany(CartFood::class);
     }
-    public function comments()
+    public function comments(): HasMany
     {
         return $this->hasMany(comment::class);
     }

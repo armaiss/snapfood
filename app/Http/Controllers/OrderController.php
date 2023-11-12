@@ -13,6 +13,8 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::paginate(5);
+//        $orderStatus = Order::query()->select('status')->get();
+//        dd($orderStatus);
         return view('order.index',compact('orders'));
     }
 
@@ -24,8 +26,13 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function edit(string $id)
     {
-        //
+
+    }
+
+    public function destroy(Order $order)
+    {
+        $order->delete();
     }
 }
