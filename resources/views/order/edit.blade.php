@@ -41,14 +41,14 @@
                         <td class="p-4 border">{{ $order->updated_at }}</td>
                         <td class="p-4 border">
                             <div class="flex mt-4">
-                                <form action="{{ route('foods.destroy', $order) }}" method="post">
+                                <form action="{{ route('orders.destroy', $order) }}" method="post">
                                     @csrf
                                     @method("DELETE")
                                     <button class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
                                         {{ __('حذف') }}
                                     </button>
                                 </form>
-                                <a href="{{ route('order.edit', $order) }}" class="ml-4">
+                                <a href="{{ route('orders.edit', $order) }}" class="ml-4">
                                     <button class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
                                         {{ __('بروزرسانی وضعیت') }}
                                     </button>

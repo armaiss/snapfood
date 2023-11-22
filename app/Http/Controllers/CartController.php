@@ -8,6 +8,7 @@ use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use App\Models\CartFood;
 use App\Models\Food;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,22 +37,29 @@ class CartController extends Controller
     public function store(Request $request)
     {
 
-        $foodId = $request->post('food_id');
-        $food =  Food::query()->find($foodId);
-        $restaurantId= $food->restaurant_id;
-        $count = $request->count;
-        $total = ($food->price*(100-$food->discount)/100)*$count;
-        $cart= Cart::query()->create([
-            'user_id'=> Auth::user()->id,
-            'restaurant_id'=>$restaurantId,
-            'total_price'=>$total,
-            ]);
-        CartFood::query()->create([
-            'cart_id'=>$cart->id,
-            'food_id'=>$foodId,
-            'count'=>$count,
-        ]);
+        try {
+            $foodId = $request->post('food_id');
 
+            $food = Food::query()->findOrFail($foodId);
+
+            $restaurantId = $food->restaurant_id;
+            $count = $request->count;
+            $total = ($food->price * (100 - $food->discount) / 100) * $count;
+            $cart = Cart::query()->create([
+                'user_id' => Auth::user()->id,
+                'restaurant_id' => $restaurantId,
+                'total_price' => $total,
+            ]);
+
+            CartFood::query()->create([
+                'cart_id' => $cart->id,
+                'food_id' => $foodId,
+                'count' => $count,
+            ]);
+
+        } catch (ModelNotFoundException $e) {
+            abort(404, "غذایی با این مشخطات پیدا نشد");
+        }
 
     }
 

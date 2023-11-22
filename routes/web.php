@@ -1,6 +1,11 @@
 <?php
 
 
+use App\Http\Controllers\food\FoodCategoryController;
+use App\Http\Controllers\food\FoodController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\restaurant\RestaurantCategoryController;
+use App\Http\Controllers\restaurant\RestaurantController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,13 +34,19 @@ Route::middleware([
 });
 Route::prefix('dashboard')->middleware('auth')->group(function () {
 
-    Route::resource('foodCategories', \App\Http\Controllers\food\FoodCategoryController::class);
-    Route::resource('restaurantCategories', \App\Http\Controllers\restaurant\RestaurantCategoryController::class);
-    Route::resource('restaurants', \App\Http\Controllers\restaurant\RestaurantController::class);
-    Route::resource('foods', \App\Http\Controllers\food\FoodController::class);
-    Route::resource('order', \App\Http\Controllers\OrderController::class);
-    Route::get('allFoods', [\App\Http\Controllers\food\FoodController::class, 'products'])->name('allFoods');
-    Route::delete('/orders/{order}', [\App\Http\Controllers\OrderController::class, 'destroy'])->name('orders.destroy');
-    Route::put('/orders/{order}', [\App\Http\Controllers\OrderController::class, 'update'])->name('orders.update');
+    Route::resource('foodCategories', FoodCategoryController::class);
+    Route::resource('restaurantCategories', RestaurantCategoryController::class);
+    Route::resource('restaurants', RestaurantController::class);
+    Route::resource('foods', FoodController::class);
+    Route::resource('orders', OrderController::class);
+    Route::get('products', [FoodController::class, 'products'])->name('products');
+    Route::post('products/catFilter', [FoodController::class, 'categoryFilter'])->name('categoryFilter');
+    Route::post('/filter-foods', [FoodController::class, 'filterFoods'])->name('filterFoods');
+    Route::post('products/categoryFilter', [FoodController::class, 'categoryFilter'])->name('categoryFilter');
+
+
+//    Route::delete('/orders/{order}', [\App\Http\Controllers\OrderController::class, 'destroy'])->name('orders.destroy');
+//    Route::put('/orders/{order}', [\App\Http\Controllers\OrderController::class, 'update'])->name('orders.update');
+
 
 });

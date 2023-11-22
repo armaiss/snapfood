@@ -15,6 +15,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 class FoodController extends Controller
 {
@@ -24,7 +25,7 @@ class FoodController extends Controller
      */
     public function index(): View|\Illuminate\Foundation\Application|Factory|Application
     {
-      $this->authorize('viewAny',Food::class);
+        $this->authorize('viewAny',Food::class);
         return view('food.index',[
             'foods'=>Food::query()->where('restaurant_id',Auth::user()->restaurant->id)->get()
         ]);
@@ -74,7 +75,7 @@ class FoodController extends Controller
     public function update(UpdateFoodRequest $request, Food $food)
     {
         $this->authorize('update',$food);
-       $food->update($request->validated());
+        $food->update($request->validated());
         return redirect()->route('foods.index');
     }
 
@@ -91,20 +92,35 @@ class FoodController extends Controller
     public function products()
     {
         $foods = Food::all();
-        return view('food.products',compact('foods'));
-
+        $foodCategories = FoodCategory::all(); // این خط را اضافه کنید
+        return view('food.products', compact('foods', 'foodCategories'));
     }
 //api methods:
     public function indexApi(Restaurant $restaurant)
     {
-       $foods= $restaurant->foods;
+        $foods= $restaurant->foods;
         $category_id = [];
         foreach ($foods as $food){
             $category_id[] = $food->food_category_id;
-           $response = new FoodCategoryCollection(FoodCategory::query()->whereIn('id',$category_id)->get());
+            $response = new FoodCategoryCollection(FoodCategory::query()->whereIn('id',$category_id)->get());
 
         }
         return response($response , 200);
     }
+    public function nameFilter(Request $request)
+    {
+        $foods = Food::orderBy('name')->get();
+        return view('food.products',Compact('foods'));
+    }
+    public function categoryFilter(Request $request)
+    {
+        $categoryId = $request->categoryFilter;
+        $foods = Food::where('food_category_id', $categoryId)->get();
+
+        return view('food.products', compact('foods'));
+    }
+
+
+
 
 }

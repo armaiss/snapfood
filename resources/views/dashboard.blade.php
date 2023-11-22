@@ -11,8 +11,13 @@
 <body class="bg-pink-100 flex items-center justify-center h-screen">
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
+{{--        @section('content')--}}
+{{--            <!-- محتوای اصلی صفحه dashboard -->--}}
+{{--            <h1>خوش آمدید به داشبورد!</h1>--}}
+{{--            <!-- دیگر اجزا و کدها -->--}}
+
+{{--            <!-- اضافه کردن فایل order.index.blade.php -->--}}
+{{--            @include('order.index')--}}
+{{--        @endsection--}}
     </x-slot>
 </x-app-layout>

@@ -17,9 +17,9 @@
         <tr>
             <th class="p-4 border">ردیف</th>
             <th class="p-4 border">شماره سفارش</th>
-            <th class="p-4 border">نام</th>
+            <th class="p-4 border">نام مشتری</th>
             <th class="p-4 border">نام رستوران</th>
-            <th class="p-4 border">قیمت کل</th>
+            <th class="p-4 border">هزینه پرداختی</th>
             <th class="p-4 border">وضعیت</th>
 {{--            <th class="p-4 border">تاریخ ایجاد</th>--}}
 {{--            <th class="p-4 border">تاریخ بروز رسانی</th>--}}
@@ -33,6 +33,7 @@
         @endphp
         @foreach($orders as $order)
             @if($order->is_paid != 0 && $order->status !='تحویل گرفته شد' )
+                @if(\Illuminate\Support\Facades\Auth::user()->hasRole('shop_manager'))
                 <tr>
                     <td class="p-4 border">{{ $counter++ }}</td>
                     <td class="p-10 border ">{{ $order->id }}</td>
@@ -45,7 +46,7 @@
 {{--                    <td class="p-4 border">{{ $order->updated_at }}</td>--}}
                     <td class="p-4 border">
                         <div class="flex mt-4">
-                            <form action="{{ route('order.destroy', $order) }}" method="post">
+                            <form action="{{ route('orders.destroy', $order) }}" method="post">
                                 @csrf
                                 @method("DELETE")
                                 <button class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
@@ -78,6 +79,7 @@
                             </form>
                     </td>
                 </tr>
+            @endif
             @endif
         @endforeach
         </tbody>

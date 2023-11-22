@@ -13,8 +13,9 @@
     <tr>
         <th class="p-4 border">آیدی</th>
         <th class="p-4 border">نام</th>
-        <th class="p-4 border">نوع</th>
+        <th class="p-4 border">مواد تشکیل دهنده</th>
         <th class="p-4 border">قیمت</th>
+        <th class="p-4 border">دسته بندی</th>
         <th class="p-4 border">تخفیف</th>
         <th class="p-4 border">رستوران</th>
     </tr>
@@ -24,6 +25,7 @@
             <td class="p-4 border">{{ $food->name }}</td>
             <td class="p-4 border">{{ $food->materials }}</td>
             <td class="p-4 border">{{ $food->price }}</td>
+            <td class="p-4 border">{{ $food->foodCategory->name }}</td>
             <td class="p-4 border">{{ $food->discount }}</td>
             <td class="p-4 border">{{ $food->restaurant->name }}</td>
             <td class="p-4 border">
