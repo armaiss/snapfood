@@ -21,41 +21,42 @@
             <th class="p-4 border">نام رستوران</th>
             <th class="p-4 border">هزینه پرداختی</th>
             <th class="p-4 border">وضعیت</th>
-{{--            <th class="p-4 border">تاریخ ایجاد</th>--}}
-{{--            <th class="p-4 border">تاریخ بروز رسانی</th>--}}
+            {{--            <th class="p-4 border">تاریخ ایجاد</th>--}}
+            {{--            <th class="p-4 border">تاریخ بروز رسانی</th>--}}
             <th class="p-4 border">عملیات</th>
 
         </tr>
         </thead>
         <tbody>
         @php
-            $counter = 1;
+            use Illuminate\Support\Facades\Auth;$counter = 1;
         @endphp
         @foreach($orders as $order)
             @if($order->is_paid != 0 && $order->status !='تحویل گرفته شد' )
-                @if(\Illuminate\Support\Facades\Auth::user()->hasRole('shop_manager'))
-                <tr>
-                    <td class="p-4 border">{{ $counter++ }}</td>
-                    <td class="p-10 border ">{{ $order->id }}</td>
-                    <td class="p-10 border ">{{ $order->user->name }}</td>
-                    <td class="p-4 border">{{ $order->restaurant->name }}</td>
-                    <td class="p-4 border">{{ $order->total_price }}</td>
-{{--                    <td class="p-4 border">{{ ($order->status) }}</td>--}}
-                    <td class="p-4 border">{{ 1 }}</td>
-{{--                    <td class="p-4 border">{{ $order->created_at }}</td>--}}
-{{--                    <td class="p-4 border">{{ $order->updated_at }}</td>--}}
-                    <td class="p-4 border">
-                        <div class="flex mt-4">
-                            <form action="{{ route('orders.destroy', $order) }}" method="post">
-                                @csrf
-                                @method("DELETE")
-                                <button class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
-                                    {{ __('حذف') }}
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                    <td>
+{{--                @if(Auth::user()->hasRole('shop_manager'))--}}
+                    <tr>
+                        <td class="p-4 border">{{ $counter++ }}</td>
+                        <td class="p-10 border ">{{ $order->id }}</td>
+                        <td class="p-10 border ">{{ $order->user->name }}</td>
+                        <td class="p-4 border">{{ $order->restaurant->name }}</td>
+                        <td class="p-4 border">{{ $order->total_price }}</td>
+                        {{--                    <td class="p-4 border">{{ ($order->status) }}</td>--}}
+                        <td class="p-4 border">{{ 1 }}</td>
+                        {{--                    <td class="p-4 border">{{ $order->created_at }}</td>--}}
+                        {{--                    <td class="p-4 border">{{ $order->updated_at }}</td>--}}
+                        <td class="p-4 border">
+                            <div class="flex mt-4">
+                                <form action="{{ route('orders.destroy', $order) }}" method="post">
+                                    @csrf
+                                    @method("DELETE")
+                                    <button
+                                        class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
+                                        {{ __('حذف') }}
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                        <td>
                             <form method="post" action="{{ route('orders.update', $order->id) }}">
                                 @csrf
                                 @method('put')
@@ -66,21 +67,36 @@
 
                                     <select name="status" id="status" class="form-control">
                                         <option value="{{$order->status }}" selected>{{ $order->status }}</option>
-                                        <option value="در حال بررسی" {{ $order->status == 'در حال بررسی' ? 'selected' : '' }}>در حال بررسی</option>
-                                        <option value="در حال تهیه" {{ $order->status == 'در حال تهیه' ? 'selected' : '' }}>در حال تهیه</option>
-                                        <option value="در حال ارسال" {{ $order->status == 'در حال ارسال' ? 'selected' : '' }}>در حال ارسال</option>
-                                        <option value="تحویل گرفته شد" {{ $order->status == 'تحویل گرفته شد' ? 'selected' : '' }}>تحویل گرفته شد</option>
+                                        <option
+                                            value="در حال بررسی" {{ $order->status == 'در حال بررسی' ? 'selected' : '' }}>
+                                            در حال بررسی
+                                        </option>
+                                        <option
+                                            value="در حال تهیه" {{ $order->status == 'در حال تهیه' ? 'selected' : '' }}>
+                                            در حال تهیه
+                                        </option>
+                                        <option
+                                            value="در حال ارسال" {{ $order->status == 'در حال ارسال' ? 'selected' : '' }}>
+                                            در حال ارسال
+                                        </option>
+                                        <option
+                                            value="تحویل گرفته شد" {{ $order->status == 'تحویل گرفته شد' ? 'selected' : '' }}>
+                                            تحویل گرفته شد
+                                        </option>
                                     </select>
 
-                                    <button type="submit"  class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">اعمال</button>
+                                    <button type="submit"
+                                            class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
+                                        اعمال
+                                    </button>
                                 </div>
 
 
                             </form>
-                    </td>
-                </tr>
-            @endif
-            @endif
+                        </td>
+                    </tr>
+                @endif
+{{--            @endif--}}
         @endforeach
         </tbody>
     </table>
