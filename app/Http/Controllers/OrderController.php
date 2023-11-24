@@ -8,7 +8,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Cart as Order;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 
 class OrderController extends Controller
@@ -25,11 +24,12 @@ class OrderController extends Controller
 
     }
 
-    public function update(Request $request, Order $order): RedirectResponse
+    public function update(Request $request, Order $order)
     { $validatedData = $request->validate(['status' => 'required']);
         $order->update($validatedData);
 //        Mail::to($order->user->email)->send(new     OrderStatusMail($order));
         Notification::send($order->user,new OrderStatus($order));
+//        dd($order);
         return redirect()->route('orders.index');
     }
 
