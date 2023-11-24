@@ -43,6 +43,8 @@ Route::prefix('carts')->controller(\App\Http\Controllers\CartController::class)-
     Route::post('/add','store')->name('.store');
     Route::patch('/{cart}','update')->name('.update');
     Route::get('/{cart}','show')->name('.show');
+    Route::patch('/{cart}/pay', 'pay')->name('.pay');
+
 });
     Route::get('/comments',[\App\Http\Controllers\CommentController::class, 'index'])->name('index');
     Route::post('/comments',[\App\Http\Controllers\CommentController::class, 'store'])->name('show');

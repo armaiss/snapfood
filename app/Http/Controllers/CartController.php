@@ -68,6 +68,7 @@ class CartController extends Controller
      */
     public function show(Cart $cart)
     {
+
        return response(new CartResource($cart));
     }
 
@@ -102,8 +103,24 @@ $cart->update([
     /**
      * Remove the specified resource from storage.
      */
-    public function pay (Cart $card)
+    public function pay (Cart $cart)
     {
+        try {
+            $cartId =$cart->id;
+            $cart = Cart::query()->findOrFail($cartId);
 
+            if ($cart->is_paid) {
+                return response()->json(['message' => 'This cart has already been paid.']);
+            }
+
+            $cart->update([
+                'is_paid' => 1,
+            ]);
+
+            return response()->json(['message' => 'Payment successful']);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => 'Cart not found.'], 404);
+        }
     }
 }
