@@ -47,6 +47,15 @@
                 @endforeach
             </select>
         </div>
+        <!-- Image -->
+        <div class="mb-4">
+            <label for="image" class="block text-pink-700 text-sm font-medium">Image</label>
+            <input id="image" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="file" name="image">
+            @if($food->image)
+                <img src="{{ asset('images/'.$food->image) }}" alt="{{ $food->name }}" class="mt-2">
+            @endif
+        </div>
+
 
         <input type="hidden" name="restaurant_id" value="{{ Auth::user()->restaurant->id }}">
 

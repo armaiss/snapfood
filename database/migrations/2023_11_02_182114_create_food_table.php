@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('food_category_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('materials');
-            $table->string('image')->nullable()->default('null');
+            $table->string('image')->nullable()->default('default-food-image.jpg');
             $table->decimal('price',10,2);
             $table->decimal('discount')->default(0);
             $table->boolean('status')->default(1);

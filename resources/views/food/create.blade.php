@@ -46,6 +46,13 @@
                 </select>
                 <!-- error :messages="$errors->get('food_category_id')" class="mt-2" -->
             </div>
+            <!-- تصویر غذا -->
+            <div>
+                <label for="image" class="block font-medium text-sm text-pink-700">Image</label>
+                <input id="image" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="file" name="image" />
+                <!-- error :messages="$errors->get('image')" class="mt-2" -->
+            </div>
+
 
             <input type="hidden" name="restaurant_id" value="{{Auth::user()->restaurant->id}}">
 
