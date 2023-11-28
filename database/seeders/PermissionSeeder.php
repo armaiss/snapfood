@@ -34,7 +34,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
-                'name' => 'update-category', //ediet , update
+                'name' => 'update-category', //edit , update
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -60,6 +60,27 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name' => 'update-food',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'name' => 'delete-food',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'name' => 'viewAny-comment',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+
+            [
+                'name' => 'approve-food',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'name' => 'answer-food',
                 'created_at' => now(),
                 'updated_at' => now()
             ],

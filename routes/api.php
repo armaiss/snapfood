@@ -46,6 +46,6 @@ Route::prefix('carts')->controller(\App\Http\Controllers\CartController::class)-
     Route::patch('/{cart}/pay', 'pay')->name('.pay');
 
 });
-    Route::get('/comments',[\App\Http\Controllers\CommentController::class, 'index'])->name('index');
-    Route::post('/comments',[\App\Http\Controllers\CommentController::class, 'store'])->name('show');
+    Route::get('/comments',[\App\Http\Controllers\CommentController::class, 'indexApi'])->name('index');
+    Route::post('/comments',[\App\Http\Controllers\CommentController::class, 'store'])->name('store');
 });

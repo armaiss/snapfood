@@ -43,10 +43,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     Route::post('products/catFilter', [FoodController::class, 'categoryFilter'])->name('categoryFilter');
     Route::post('/filter-foods', [FoodController::class, 'filterFoods'])->name('filterFoods');
     Route::post('products/categoryFilter', [FoodController::class, 'categoryFilter'])->name('categoryFilter');
-
-
-//    Route::delete('/orders/{order}', [\App\Http\Controllers\OrderController::class, 'destroy'])->name('orders.destroy');
-//    Route::put('/orders/{order}', [\App\Http\Controllers\OrderController::class, 'update'])->name('orders.update');
-
+    Route::post('products/', [\App\Http\Controllers\CommentController::class, 'store'])->name('comment.store');
+    Route::resource('comments', \App\Http\Controllers\CommentController::class);
 
 });

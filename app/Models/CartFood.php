@@ -9,7 +9,7 @@ class CartFood extends Model
 {
     use HasFactory;
     protected $guarded =['id'];
-//public $table = 'carts';
+
     public function food()
     {
         return $this->belongsTo(Food::class);

@@ -1,5 +1,9 @@
+
+{{--@extends('layouts.app')--}}
+
+{{--@section('content')--}}
 <!doctype html>
-<html lang="en">
+<html lang="en"  dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -62,3 +66,4 @@
 </div>
 </body>
 </html>
+{{--@endsection--}}

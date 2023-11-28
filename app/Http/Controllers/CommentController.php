@@ -3,23 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CommentCollection;
+use App\Models\Cart;
 use App\Models\comment;
 use App\Models\Restaurant;
+use App\Models\User;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use PhpParser\Node\Stmt\Return_;
 
 class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): Application|Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
+    public function indexApi(Request $request)
     {
         $restaurant_id= $request->get('restaurant_id');
         $comments=Restaurant::query()->find($restaurant_id)->comments;
         return response(new CommentCollection($comments));
+    }
+
+    public function index()
+    {
+        $this->authorize('viewAny', Comment::class);
+        $comments = Comment::paginate(10);
+
+        return view('comment.index', compact('comments'));
     }
 
     /**
@@ -49,9 +60,15 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(comment $comment)
+    public function show(User $user)
     {
-        //
+        $carts = Cart::where('restaurant_id', $user->restaurant->id)->get();
+
+        $comments = Comment::whereIn('cart_id', $carts->pluck('id'))->get();
+        dd($comments);
+
+//        return view('comment.show', ['comments' => $comments]);
+
     }
 
     /**
