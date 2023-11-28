@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\food\FoodCategoryController;
 use App\Http\Controllers\food\FoodController;
 use App\Http\Controllers\OrderController;
@@ -43,7 +44,8 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     Route::post('products/catFilter', [FoodController::class, 'categoryFilter'])->name('categoryFilter');
     Route::post('/filter-foods', [FoodController::class, 'filterFoods'])->name('filterFoods');
     Route::post('products/categoryFilter', [FoodController::class, 'categoryFilter'])->name('categoryFilter');
-    Route::post('products/', [\App\Http\Controllers\CommentController::class, 'store'])->name('comment.store');
-    Route::resource('comments', \App\Http\Controllers\CommentController::class);
+    Route::post('products/', [CommentController::class, 'store'])->name('comment.store');
+    Route::resource('comments', CommentController::class);
+    Route::post('comments', [CommentController::class, 'approve'])->name('comment.approve');
 
 });

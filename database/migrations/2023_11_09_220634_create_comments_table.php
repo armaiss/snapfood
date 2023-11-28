@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('content');
             $table->double('score');
             $table->foreignId('cart_id')->constrained();
+            $table->enum('status', ['در حال بررسی', 'تایید', 'درخواست حذف'])->default('در حال بررسی');
             $table->timestamps();
         });
     }

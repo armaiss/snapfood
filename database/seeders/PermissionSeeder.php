@@ -75,17 +75,17 @@ class PermissionSeeder extends Seeder
             ],
 
             [
-                'name' => 'approve-food',
+                'name' => 'approve-comment',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'name' => 'answer-food',
+                'name' => 'answer-comment',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'name' => 'delete-food',
+                'name' => 'delete-comment',
                 'created_at' => now(),
                 'updated_at' => now()
             ],

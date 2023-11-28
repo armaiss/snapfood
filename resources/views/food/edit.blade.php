@@ -1,4 +1,5 @@
-<!doctype html>
+@php use App\Models\FoodCategory; @endphp
+    <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,32 +18,37 @@
         <!-- Name -->
         <div class="mb-4">
             <label for="name" class="block text-pink-700 text-sm font-medium">Name</label>
-            <input id="name" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text" name="name" value="{{ $food->name }}">
+            <input id="name" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text" name="name"
+                   value="{{ $food->name }}">
         </div>
 
         <!-- Discount -->
         <div class="mb-4">
             <label for="discount" class="block text-pink-700 text-sm font-medium">Discount</label>
-            <input id="discount" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text" name="discount" value="{{ $food->discount }}">
+            <input id="discount" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text"
+                   name="discount" value="{{ $food->discount }}">
         </div>
 
         <!-- Materials -->
         <div class="mb-4">
             <label for="materials" class="block text-pink-700 text-sm font-medium">Materials</label>
-            <input id="materials" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text" name="materials" value="{{ $food->materials }}">
+            <input id="materials" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text"
+                   name="materials" value="{{ $food->materials }}">
         </div>
 
         <!-- Price -->
         <div class="mb-4">
             <label for="price" class="block text-pink-700 text-sm font-medium">Price</label>
-            <input id="price" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text" name="price" value="{{ $food->price }}">
+            <input id="price" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text"
+                   name="price" value="{{ $food->price }}">
         </div>
 
         <!-- Category -->
         <div class="mb-4">
             <label for="category" class="block text-pink-700 text-sm font-medium">Category</label>
-            <select id="category" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text" name="food_category_id">
-                @foreach(\App\Models\FoodCategory::all() as $category)
+            <select id="category" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text"
+                    name="food_category_id">
+                @foreach(FoodCategory::all() as $category)
                     <option value="{{ $category->id }}"> {{ $category->name }}</option>
                 @endforeach
             </select>
@@ -50,7 +56,8 @@
         <!-- Image -->
         <div class="mb-4">
             <label for="image" class="block text-pink-700 text-sm font-medium">Image</label>
-            <input id="image" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="file" name="image">
+            <input id="image" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="file"
+                   name="image">
             @if($food->image)
                 <img src="{{ asset('images/'.$food->image) }}" alt="{{ $food->name }}" class="mt-2">
             @endif

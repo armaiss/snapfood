@@ -32,6 +32,10 @@ class CommentController extends Controller
 
         return view('comment.index', compact('comments'));
     }
+    public function approve(User $user)
+    {
+
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -92,6 +96,6 @@ class CommentController extends Controller
      */
     public function destroy(comment $comment)
     {
-        //
+       return 1;
     }
 }

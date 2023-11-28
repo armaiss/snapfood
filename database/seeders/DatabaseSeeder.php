@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $admin = \App\Models\User::query()->create([
             'name' => 'zahra',
             'email' => 'zahra@gmail.com',
-            'password' => bcrypt('zahra'),
+            'password' => bcrypt('11111111'),
             'phone_number' => '09197521026',
         ]);
         $admin->assignRole(Role::findByName('admin'));

@@ -1,7 +1,4 @@
 
-{{--@extends('layouts.app')--}}
-
-{{--@section('content')--}}
 <!doctype html>
 <html lang="en"  dir="rtl">
 <head>
@@ -60,10 +57,16 @@
         </div>
     @endforeach
 </div>
+
+            <a href="{{ route('foods.create') }}" class="ml-4">
+                <button class="bg-pink-500 hover-bg-pink-700 text-white font-bold py-2 px-4 m-2 rounded">
+                    {{ __('اضافه کردن غذا') }}
+                </button>
+            </a>
+
 <div class="mt-8">
 {{--    {{ $foods->links() }}--}}
 </div>
 </div>
 </body>
 </html>
-{{--@endsection--}}

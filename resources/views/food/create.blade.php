@@ -1,4 +1,5 @@
-<!doctype html>
+@php use App\Models\FoodCategory; @endphp
+    <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,30 +18,34 @@
             <!-- Name -->
             <div>
                 <label for="name" class="block font-medium text-sm text-pink-700">Name</label>
-                <input id="name" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text" name="name"
-                    />
+                <input id="name" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text"
+                       name="name"
+                />
                 <!-- error :messages="$errors->get('name')" class="mt-2" -->
             </div>
             <!-- Materials -->
             <div>
                 <label for="materials" class="block font-medium text-sm text-pink-700">Materials</label>
-                <input id="materials" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text" name="materials"
-                      />
+                <input id="materials" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text"
+                       name="materials"
+                />
                 <!-- error :messages="$errors->get('materials')" class="mt-2" -->
             </div>
             <!-- Price -->
             <div>
                 <label for="price" class="block font-medium text-sm text-pink-700">Price</label>
-                <input id="price" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text" name="price"
-                      />
+                <input id="price" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text"
+                       name="price"
+                />
                 <!-- error :messages="$errors->get('price')" class="mt-2" -->
             </div>
 
             <!-- Category -->
             <div>
                 <label for="category" class="block font-medium text-sm text-pink-700">Category</label>
-                <select id="category" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text" name="food_category_id">
-                    @foreach(\App\Models\FoodCategory::all() as $category)
+                <select id="category" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="text"
+                        name="food_category_id">
+                    @foreach(FoodCategory::all() as $category)
                         <option value="{{$category->id}}"> {{$category->name}}</option>
                     @endforeach
                 </select>
@@ -49,7 +54,8 @@
             <!-- تصویر غذا -->
             <div>
                 <label for="image" class="block font-medium text-sm text-pink-700">Image</label>
-                <input id="image" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="file" name="image" />
+                <input id="image" class="block mt-1 w-full border border-pink-300 rounded px-3 py-2" type="file"
+                       name="image"/>
                 <!-- error :messages="$errors->get('image')" class="mt-2" -->
             </div>
 
