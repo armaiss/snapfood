@@ -32,8 +32,9 @@ class CommentController extends Controller
 
         return view('comment.index', compact('comments'));
     }
-    public function approve(User $user)
+    public function approve(Comment $comment)
     {
+        comment:: $comment
 
     }
 

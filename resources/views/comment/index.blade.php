@@ -19,6 +19,7 @@
             <th class="py-2 px-4 border-b">دیدگاه</th>
             <th class="py-2 px-4 border-b">شماره سفارش</th>
             <th class="py-2 px-4 border-b">تاریخ</th>
+            <th class="py-2 px-4 border-b">وضعیت</th>
             <th class="py-2 px-4 border-b">عملیات</th>
         </tr>
         </thead>
@@ -31,6 +32,7 @@
                 <td class="py-2 px-4 border-b whitespace-pre-line h-auto">{{ $comment->content }}</td>
                 <td class="py-2 px-2 border-b">{{ $comment->cart_id }}</td>
                 <td class="py-2 px-2 border-b">{{ $comment->created_at }}</td>
+                <td class="py-2 px-2 border-b">{{ $comment->status }}</td>
                 <td class="py-2 px-2 border-b">
                     <form action="{{ route('comment.approve', $comment->id) }}" method="post">
                         @csrf
@@ -51,6 +53,7 @@
                     <td class="py-2 px-4 border-b whitespace-pre-line h-auto">{{ $comment->content }}</td>
                     <td class="py-2 px-2 border-b">{{ $comment->cart_id }}</td>
                     <td class="py-2 px-2 border-b">{{ $comment->created_at }}</td>
+                    <td class="py-2 px-2 border-b">{{ $comment->status }}</td>
                     <td class="py-2 px-2 border-b">
                         <form action="{{ route('comment.approve', $comment->id) }}" method="post">
                             @csrf

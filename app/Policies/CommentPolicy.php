@@ -12,7 +12,7 @@ class CommentPolicy
     public function viewAny(User $user)
     {
 
-        return $user->hasRole('admin');
+        return true;
     }
 
     public function delete(User $user)
