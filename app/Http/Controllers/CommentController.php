@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateCommentRequest;
 use App\Http\Resources\CommentCollection;
+use App\Models\Auth;
 use App\Models\Cart;
 use App\Models\comment;
+use App\Models\Food;
 use App\Models\Restaurant;
 use App\Models\User;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
 use PhpParser\Node\Stmt\Return_;
 
 class CommentController extends Controller
@@ -27,16 +31,34 @@ class CommentController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Comment::class);
-        $comments = Comment::paginate(10);
+        if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin')){
+            $this->authorize('viewAny', Comment::class);
+            $filter = \request()->input('filter_status');
+            $comments = Comment::query()->when(!empty($filter),function ($query) use ($filter){
+                return $query->where('status', $filter);
+            })->paginate(5);
 
-        return view('comment.index', compact('comments'));
-    }
-    public function approve(Comment $comment)
-    {
-        comment:: $comment
+            return view('comment.index', compact('comments'));
+        }
+        else{
+//            $carts = Cart::where('restaurant_id', $user->restaurant->id)->get();
+
+//        $comments = Comment::whereIn('cart_id', $carts->pluck('id'))->get();
+            $comments =\Illuminate\Support\Facades\Auth::user()->restaurant->comments;
+            $filter = \request()->input('filter_food');
+//            $comments = $comments->when(!empty($filter),function ($query) use ($filter){
+//                return $query->map(function ($comment){
+//                    return $comment->cart;
+//
+//                })->map(fn($cart)=>$cart->foods)->map(fn($food));
+//
+//            });
+//dd($comments);
+            return view('comment.index', compact('comments'));
+        }
 
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -67,12 +89,7 @@ class CommentController extends Controller
      */
     public function show(User $user)
     {
-        $carts = Cart::where('restaurant_id', $user->restaurant->id)->get();
 
-        $comments = Comment::whereIn('cart_id', $carts->pluck('id'))->get();
-        dd($comments);
-
-//        return view('comment.show', ['comments' => $comments]);
 
     }
 
@@ -87,9 +104,15 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, comment $comment)
+    public function update(UpdateCommentRequest $request, Comment $comment)
     {
-        //
+        $comment->update([
+            'status' => $request->input('status'),
+        ]);
+
+
+        return redirect()->route('comments.index');
+
     }
 
     /**
@@ -99,4 +122,32 @@ class CommentController extends Controller
     {
        return 1;
     }
+
+    public function indexByStatus(Request $request)
+    {
+        $carts = Auth::user()->restaurant->carts->where('status','!=','تحویل گرفته شد');
+        $filter = $request->get('filter_status');
+        return view('comment.index',[
+            'carts'=>$carts->when(!empty($filter),function ($query) use ($filter){
+                return $query->where('status', $filter);
+            })->paginate(5),
+        ]);
+
+    }
+//    public function indexByFood(Request $request)
+//    {
+//        if (Auth::user()->hasRole('admin')){
+//            $foods = Food::all();
+//        }
+//        else{
+//            $foods =  Auth::user()->restaurant->foods;
+//        }
+//
+//        $filter = $request->get('food_name');
+//        $comments = Comment::whereHas('food', function ($query) use ($filter) {
+//            $query->where('name', $filter);
+//        })->get();
+//
+//        return view('comment.index', ['foods' => $foods, 'comments' => $comments]);
+//    }
 }
