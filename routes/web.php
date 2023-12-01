@@ -46,7 +46,5 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     Route::post('products/categoryFilter', [FoodController::class, 'categoryFilter'])->name('categoryFilter');
     Route::post('products/', [CommentController::class, 'store'])->name('comment.store');
     Route::resource('/comments', CommentController::class);
-//    Route::get('/comments/indexByStatus', [CommentController::class, 'indexByStatus'])->name('comments.indexByStatus');
-
-
+    Route::get('/reports', [\App\Http\Controllers\ReportsController::class,'index'])->name('report.index');;
 });

@@ -52,6 +52,10 @@
                     <x-nav-link href="{{ route('comments.index') }}" :active="request()->routeIs('dashboard')">
                         {{'نظرات'}}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('report.index') }}" :active="request()->routeIs('dashboard')">
+                        {{'گزارشات'}}
+                    </x-nav-link>
+
 
 
                 </div>

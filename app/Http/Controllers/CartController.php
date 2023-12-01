@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateCartRequest;
 use App\Http\Resources\CartCollection;
 use App\Http\Resources\CartResource;
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\CartFood;
 use App\Models\Food;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -115,6 +116,17 @@ $cart->update([
 
             $cart->update([
                 'is_paid' => 1,
+                Order::query()->create(
+                    [
+                        'user_id'=>$cart->user_id,
+                        'restaurant_id'=>$cart->restaurant_id,
+                        'total_price'=>$cart->total_price,
+                        'created_at'=>now(),
+                        'updated_at'=>now(),
+
+                    ]
+                )
+
             ]);
 
             return response()->json(['message' => 'Payment successful']);

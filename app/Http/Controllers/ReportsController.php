@@ -2,38 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\OrderStatusMail;
-use App\Notifications\OrderStatus;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Reports;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Notification;
 
-class OrderController extends Controller
+class ReportsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $orders = Order::paginate(5);
+    {  $orders = Order::paginate(5);
         $categories = DB::table('food_categories')->pluck('name');
 
-        return view('order.index',compact('orders','categories'));
+        return view('report.index',compact('orders','categories'));
 
     }
-
-    public function update(Request $request, Order $order)
-    { $validatedData = $request->validate(['status' => 'required']);
-        $order->update($validatedData);
-//        Mail::to($order->user->email)->send(new     OrderStatusMail($order));
-        Notification::send($order->user,new OrderStatus($order));
-//        dd($order);
-        return redirect()->route('orders.index');
-    }
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -54,7 +39,7 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Reports $reports)
     {
         //
     }
@@ -62,7 +47,7 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Reports $reports)
     {
         //
     }
@@ -70,11 +55,15 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    public function update(Request $request, Reports $reports)
+    {
+        //
+    }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Reports $reports)
     {
         //
     }

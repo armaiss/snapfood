@@ -18,14 +18,14 @@
             <label for="filter_food" class=" w-1/2 text-gray-700 text-sm font-bold mb-2">فیلتر بر اساس غذا:</label>
             <select id="filter_food" name="filter_food" class="w-1/2 p-2 border border-gray-300 rounded">
                 <option value="">همه</option>
-                @foreach(\Illuminate\Support\Facades\Auth::user()->restaurant->foods as $food)
-                    <option value="{{$food->name}}">{{$food->name}}</option>
-                @endforeach
+{{--                @foreach(\Illuminate\Support\Facades\Auth::user()->restaurant->foods as $food)--}}
+{{--                    <option value="{{$food->name}}">{{$food->name}}</option>--}}
+{{--                @endforeach--}}
             </select>
             <button type="submit" class="bg-pink-500 text-white p-2 mr-2 rounded w-1/4 ">اعمال فیلتر</button>
         </form>
 
-        <form action="" method="get" class="bg-white p-4 rounded shadow-md flex items-center w-1/2"">
+        <form action="" method="get" class="bg-white p-4 rounded shadow-md flex items-center w-1/2">
             <label for="filter_status" class="text-gray-700 text-sm font-bold mb-2 w-1/2">فیلتر بر اساس وضعیت:</label>
             <select id="filter_status" name="filter_status" class="w-1/2 p-2 border border-gray-300 rounded ">
                 <option value="">همه</option>
@@ -50,36 +50,36 @@
         </tr>
         </thead>
         <tbody>
-{{--        {{$comments->withQueryString()->links()}}--}}
+        {{--        {{$comments->withQueryString()->links()}}--}}
         @foreach($comments as $comment)
             @if(Auth::user()->hasRole('admin'))
-            <tr>
-                <td class="py-2 px-2 border-b">{{ $loop->iteration }}</td>
-                <td class="py-2 px-2 border-b">{{ $comment->cart->user->name }}</td>
-                <td class="py-2 px-4 border-b whitespace-pre-line h-auto">{{ $comment->content }}</td>
-                <td class="py-2 px-2 border-b">{{ $comment->cart_id }}</td>
-                <td class="py-2 px-2 border-b">{{ $comment->created_at }}</td>
-                <td class="py-2 px-2 border-b">{{ $comment->status }}</td>
-                <td class="py-2 px-2 border-b">
-                    <div  class="flex items-center ">
-                        <form action="{{ route('comments.update', $comment) }}" method="post" class="border-l-4">
-                            @csrf
-                            @method('PATCH')
-                            <input type="hidden" value="تایید" name="status">
-                            <input type="submit" class="bg-green-500 text-white p-2 rounded" value="تایید">
+                <tr>
+                    <td class="py-2 px-2 border-b">{{ $loop->iteration }}</td>
+                    <td class="py-2 px-2 border-b">{{ $comment->cart->user->name }}</td>
+                    <td class="py-2 px-4 border-b whitespace-pre-line h-auto">{{ $comment->content }}</td>
+                    <td class="py-2 px-2 border-b">{{ $comment->cart_id }}</td>
+                    <td class="py-2 px-2 border-b">{{ $comment->created_at }}</td>
+                    <td class="py-2 px-2 border-b">{{ $comment->status }}</td>
+                    <td class="py-2 px-2 border-b">
+                        <div  class="flex items-center ">
+                            <form action="{{ route('comments.update', $comment) }}" method="post" class="border-l-4">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" value="تایید" name="status">
+                                <input type="submit" class="bg-green-500 text-white p-2 rounded" value="تایید">
 
-                        </form>
-                        <form action="{{ route('comments.destroy', $comment) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            @if($comment->status =='درخواست حذف')
-                            <input type="submit" id="delete" name="delete" class="bg-red-500 text-white p-2 rounded" value="حذف">
-                            @endif
-                        </form>
-                    </div>
+                            </form>
+                            <form action="{{ route('comments.destroy', $comment) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                @if($comment->status =='درخواست حذف')
+                                    <input type="submit" id="delete" name="delete" class="bg-red-500 text-white p-2 rounded" value="حذف">
+                                @endif
+                            </form>
+                        </div>
 
-                </td>
-            </tr>
+                    </td>
+                </tr>
             @elseif(Auth::user()->hasRole('shop_manager') && $comment->cart->restaurant_id == Auth::user()->restaurant->id)
                 <tr>
                     <td class="py-2 px-2 border-b">{{ $loop->iteration }}</td>
@@ -105,7 +105,7 @@
 
                         </form>
             @endif
-                @endforeach
+        @endforeach
         </tbody>
     </table>
 </div>
