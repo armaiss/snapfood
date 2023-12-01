@@ -14,27 +14,30 @@
 
 
     <div class="min-w-full flex bg-white mb-4 border-gray-300 shadow-md rounded-md overflow-hidden">
+        @if(!\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
         <form action="" method="get" class=" bg-white p-4 rounded shadow-md flex items-center w-1/2">
             <label for="filter_food" class=" w-1/2 text-gray-700 text-sm font-bold mb-2">فیلتر بر اساس غذا:</label>
             <select id="filter_food" name="filter_food" class="w-1/2 p-2 border border-gray-300 rounded">
                 <option value="">همه</option>
-{{--                @foreach(\Illuminate\Support\Facades\Auth::user()->restaurant->foods as $food)--}}
-{{--                    <option value="{{$food->name}}">{{$food->name}}</option>--}}
-{{--                @endforeach--}}
+                @foreach(\Illuminate\Support\Facades\Auth::user()->restaurant->foods as $food)
+                    <option value="{{$food->id}}">{{$food->name}}</option>
+                @endforeach
             </select>
             <button type="submit" class="bg-pink-500 text-white p-2 mr-2 rounded w-1/4 ">اعمال فیلتر</button>
         </form>
-
+        @endif
+        @if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
         <form action="" method="get" class="bg-white p-4 rounded shadow-md flex items-center w-1/2">
             <label for="filter_status" class="text-gray-700 text-sm font-bold mb-2 w-1/2">فیلتر بر اساس وضعیت:</label>
             <select id="filter_status" name="filter_status" class="w-1/2 p-2 border border-gray-300 rounded ">
                 <option value="">همه</option>
                 <option value="در حال بررسی">در حال بررسی</option>
-                <option value="در حال تهیه">در حال تهیه</option>
-                <option value="در حال ارسال">در حال ارسال</option>
+                <option value="تایید">تایید</option>
+                <option value="درخواست حذف">درخواست حذف</option>
             </select>
             <button type="submit" class="bg-pink-500 text-white p-2 rounded mr-2 w-1/4">اعمال فیلتر</button>
         </form>
+        @endif
     </div>
 
     <table class="min-w-full bg-white border border-gray-300 shadow-md rounded-md overflow-hidden">
@@ -52,6 +55,7 @@
         <tbody>
         {{--        {{$comments->withQueryString()->links()}}--}}
         @foreach($comments as $comment)
+
             @if(Auth::user()->hasRole('admin'))
                 <tr>
                     <td class="py-2 px-2 border-b">{{ $loop->iteration }}</td>

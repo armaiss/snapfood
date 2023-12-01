@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateCommentRequest;
 use App\Http\Resources\CommentCollection;
 use App\Models\Auth;
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\comment;
 use App\Models\Food;
 use App\Models\Restaurant;
@@ -31,33 +32,34 @@ class CommentController extends Controller
 
     public function index()
     {
-        if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin')){
+        if (\Illuminate\Support\Facades\Auth::user()->hasRole('admin')) {
             $this->authorize('viewAny', Comment::class);
             $filter = \request()->input('filter_status');
-            $comments = Comment::query()->when(!empty($filter),function ($query) use ($filter){
-                return $query->where('status', $filter);
-            })->paginate(5);
+            $comments = Comment::query()
+                ->when(!empty($filter), function ($query) use ($filter) {
+                    return $query->where('status', $filter);
+                })
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
 
             return view('comment.index', compact('comments'));
-        }
-        else{
-//            $carts = Cart::where('restaurant_id', $user->restaurant->id)->get();
-
-//        $comments = Comment::whereIn('cart_id', $carts->pluck('id'))->get();
-            $comments =\Illuminate\Support\Facades\Auth::user()->restaurant->comments;
+        } else {
+            $comments = \Illuminate\Support\Facades\Auth::user()->restaurant->comments;
             $filter = \request()->input('filter_food');
-//            $comments = $comments->when(!empty($filter),function ($query) use ($filter){
-//                return $query->map(function ($comment){
-//                    return $comment->cart;
-//
-//                })->map(fn($cart)=>$cart->foods)->map(fn($food));
-//
-//            });
-//dd($comments);
-            return view('comment.index', compact('comments'));
-        }
 
+            $comments = $comments->when(!empty($filter), function ($query) use ($filter) {
+                $food = Food::query()->find($filter);
+                return $query->filter(function ($comment) use ($food) {
+                    return $comment->cart->foods->contains($food);
+                });
+            })
+                ->sortByDesc('created_at')
+                ->values();
+
+        return view('comment.index', compact('comments'));
     }
+    }
+
 
 
     /**
@@ -134,20 +136,5 @@ class CommentController extends Controller
         ]);
 
     }
-//    public function indexByFood(Request $request)
-//    {
-//        if (Auth::user()->hasRole('admin')){
-//            $foods = Food::all();
-//        }
-//        else{
-//            $foods =  Auth::user()->restaurant->foods;
-//        }
-//
-//        $filter = $request->get('food_name');
-//        $comments = Comment::whereHas('food', function ($query) use ($filter) {
-//            $query->where('name', $filter);
-//        })->get();
-//
-//        return view('comment.index', ['foods' => $foods, 'comments' => $comments]);
-//    }
+
 }
