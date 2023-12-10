@@ -100,6 +100,13 @@ class FoodController extends Controller
                 return $query->where('food_category_id', $filter);
             })
             ->paginate(5);
+        $foods = Food::all();
+        $filter = \request()->input('filter_food');
+        $foods = Food::query()
+            ->when(!empty($filter), function ($query) use ($filter) {
+                return $query->where('food_category_id', $filter);
+            })
+            ->paginate(5);
 
         return view('food.products', compact('foods', 'foodCategories'));
     }
