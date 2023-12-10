@@ -23,12 +23,12 @@ class CommentPolicy
 
     public function approve(User $user)
     {
-        // اجازه تایید کامنت‌ها برای فروشنده
+
         return $user->hasRole('Shop_manager');
     }
     public function answer(User $user)
     {
-        // اجازه تایید کامنت‌ها برای فروشنده
+
         return $user->hasRole('Shop_manager');
     }
 }

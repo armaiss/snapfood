@@ -10,6 +10,30 @@
 
 </head>
 <body class="bg-pink-100">
+<div class="min-w-full flex bg-white mb-4 border-gray-300 shadow-md rounded-md overflow-hidden">
+
+<form action="" method="get" class=" bg-white p-4 rounded shadow-md flex items-center w-1/2">
+    <label for="filter_food" class=" w-1/2 text-gray-700 text-sm font-bold mb-2">فیلتر بر اساس غذا:</label>
+    <select id="filter_food" name="filter_food" class="w-1/2 p-2 border border-gray-300 rounded">
+        <option value="">همه</option>
+        @foreach($foods as $food)
+            <option value="{{$food->id}}">{{$food->name}}</option>
+        @endforeach
+    </select>
+    <button type="submit" class="bg-pink-500 text-white p-2 mr-2 rounded w-1/4 ">اعمال فیلتر</button>
+</form>
+
+    <form action="" method="get" class=" bg-white p-4 rounded shadow-md flex items-center w-1/2">
+        <label for="filter_category" class=" w-1/2 text-gray-700 text-sm font-bold mb-2">فیلتر بر اساس دسته بندی :</label>
+        <select id="filter_category" name="filter_category" class="w-1/2 p-2 border border-gray-300 rounded">
+            <option value="">همه</option>
+            @foreach($foodCategories as $foodCategory)
+                <option value="{{$foodCategory->id}}">{{$foodCategory->name}}</option>
+            @endforeach
+        </select>
+        <button type="submit" class="bg-pink-500 text-white p-2 mr-2 rounded w-1/4 ">اعمال فیلتر</button>
+    </form>
+</div>
 <div class="container mx-auto mt-8 p-8">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto">
         @foreach($foods as $food)

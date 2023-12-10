@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\food\StoreFoodRequest;
 use App\Http\Requests\food\UpdateFoodRequest;
 use App\Http\Resources\FoodCategoryCollection;
+use App\Models\Comment;
 use App\Models\Food;
 
 use App\Models\FoodCategory;
@@ -92,7 +93,14 @@ class FoodController extends Controller
     public function products()
     {
         $foods = Food::all();
-        $foodCategories = FoodCategory::all(); // این خط را اضافه کنید
+        $foodCategories = FoodCategory::all();
+        $filter = \request()->input('filter_category');
+        $foods = Food::query()
+            ->when(!empty($filter), function ($query) use ($filter) {
+                return $query->where('food_category_id', $filter);
+            })
+            ->paginate(5);
+
         return view('food.products', compact('foods', 'foodCategories'));
     }
 //api methods:

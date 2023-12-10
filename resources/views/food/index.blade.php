@@ -11,6 +11,7 @@
 
 </head>
 <body class="bg-pink-100">
+<
 <div class="container mx-auto mt-8 p-8">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto">
         @foreach($foods as $food)

@@ -46,6 +46,7 @@
             <th class="py-2 px-4 border-b">شماره</th>
             <th class="py-2 px-4 border-b">نام</th>
             <th class="py-2 px-4 border-b">دیدگاه</th>
+            <th class="py-2 px-4 border-b">امتیاز</th>
             <th class="py-2 px-4 border-b">شماره سفارش</th>
             <th class="py-2 px-4 border-b">تاریخ</th>
             <th class="py-2 px-4 border-b">وضعیت</th>
@@ -61,6 +62,7 @@
                     <td class="py-2 px-2 border-b">{{ $loop->iteration }}</td>
                     <td class="py-2 px-2 border-b">{{ $comment->cart->user->name }}</td>
                     <td class="py-2 px-4 border-b whitespace-pre-line h-auto">{{ $comment->content }}</td>
+                    <td class="py-2 px-4 border-b ">{{ $comment->score }}</td>
                     <td class="py-2 px-2 border-b">{{ $comment->cart_id }}</td>
                     <td class="py-2 px-2 border-b">{{ $comment->created_at }}</td>
                     <td class="py-2 px-2 border-b">{{ $comment->status }}</td>
@@ -89,6 +91,7 @@
                     <td class="py-2 px-2 border-b">{{ $loop->iteration }}</td>
                     <td class="py-2 px-2 border-b">{{ $comment->cart->user->name }}</td>
                     <td class="py-2 px-4 border-b whitespace-pre-line h-auto">{{ $comment->content }}</td>
+                    <td class="py-2 px-4 border-b ">{{ $comment->score }}</td>
                     <td class="py-2 px-2 border-b">{{ $comment->cart_id }}</td>
                     <td class="py-2 px-2 border-b">{{ $comment->created_at }}</td>
                     <td class="py-2 px-2 border-b">{{ $comment->status }}</td>
@@ -112,7 +115,20 @@
         @endforeach
         </tbody>
     </table>
+    <div class="mt-4">
+        <a href="{{ route('dashboard') }}">
+            <button class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
+                {{ __('داشبورد') }}
+            </button>
+        </a>
+    </div>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 </div>
+
 </body>
 
 </html>

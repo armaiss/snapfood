@@ -27,7 +27,7 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     { $validatedData = $request->validate(['status' => 'required']);
         $order->update($validatedData);
-//        Mail::to($order->user->email)->send(new     OrderStatusMail($order));
+
         Notification::send($order->user,new OrderStatus($order));
 //        dd($order);
         return redirect()->route('orders.index');

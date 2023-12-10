@@ -86,22 +86,7 @@ class CommentController extends Controller
      ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
 
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(comment $comment)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -122,19 +107,11 @@ class CommentController extends Controller
      */
     public function destroy(comment $comment)
     {
-       return 1;
-    }
+        $this->authorize('delete', $comment);
+        $comment->delete();
 
-    public function indexByStatus(Request $request)
-    {
-        $carts = Auth::user()->restaurant->carts->where('status','!=','تحویل گرفته شد');
-        $filter = $request->get('filter_status');
-        return view('comment.index',[
-            'carts'=>$carts->when(!empty($filter),function ($query) use ($filter){
-                return $query->where('status', $filter);
-            })->paginate(5),
-        ]);
+
+        return redirect()->route('comments.index')->with('success', 'نظر با موفقیت حذف شد.');
 
     }
-
 }
